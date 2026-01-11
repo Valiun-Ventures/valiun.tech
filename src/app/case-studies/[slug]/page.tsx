@@ -1,19 +1,36 @@
 import { Section } from "@/components/ui/Section";
 import { Button } from "@/components/ui/Button";
 import { CheckCircle2, TrendingUp } from "lucide-react";
+import { notFound } from "next/navigation";
 
-export default function CaseStudyDetail() {
+// Mock data for static params - in a real app this would come from a CMS or DB
+const caseStudiesData = [
+    { slug: "fintech-cloud-migration", title: "FinTech Cloud Migration", industry: "FinTech" },
+    { slug: "healthcare-ai-bot", title: "AI Customer Support Bot", industry: "Healthcare" },
+    { slug: "ecommerce-platform", title: "E-Commerce Platform Re-engineering", industry: "E-Commerce" }
+];
+
+export async function generateStaticParams() {
+    return caseStudiesData.map(cs => ({ slug: cs.slug }));
+}
+
+export default async function CaseStudyDetail({ params }: { params: Promise<{ slug: string }> }) {
+    const { slug } = await params;
+    const study = caseStudiesData.find(cs => cs.slug === slug);
+
+    if (!study) return notFound();
+
     return (
         <div className="pt-10">
             <Section className="text-center">
                 <div className="inline-block px-4 py-1.5 mb-6 rounded-full border border-blue-500/30 bg-blue-500/10">
-                    <span className="text-sm font-medium text-blue-400">FinTech</span>
+                    <span className="text-sm font-medium text-blue-400">{study.industry}</span>
                 </div>
                 <h1 className="text-4xl md:text-6xl font-bold mb-6 max-w-4xl mx-auto">
-                    FinTech Cloud Migration
+                    {study.title}
                 </h1>
                 <p className="text-xl text-gray-400 max-w-3xl mx-auto">
-                    How we helped Global Finance Corp reduce operational costs by 40% through cloud-native modernization.
+                    Case study details for {study.title}. Harnessing technology to drive measurable business impact.
                 </p>
             </Section>
 
@@ -22,23 +39,23 @@ export default function CaseStudyDetail() {
                     <div>
                         <h2 className="text-2xl font-bold mb-4">The Challenge</h2>
                         <p className="text-gray-400 leading-relaxed">
-                            The client was struggling with a legacy monolithic architecture that was expensive to maintain and difficult to scale. Feature deployments took weeks, and downtime during peak hours was becoming a liability.
+                            A complex infrastructure challenge that required specialized domain expertise and advanced technical implementation to overcome legacy barriers.
                         </p>
                     </div>
                     <div>
                         <h2 className="text-2xl font-bold mb-4">Our Solution</h2>
                         <p className="text-gray-400 leading-relaxed">
-                            Valiun Tech implemented a strangler fig pattern to gradually decompose the monolith into microservices deployed on AWS EKS. We implemented a robust CI/CD pipeline using GitHub Actions and ArgoCD.
+                            Valiun Tech implemented a custom-engineered solution focused on scalability, performance, and long-term maintainability.
                         </p>
                     </div>
                     <div>
                         <h2 className="text-2xl font-bold mb-4">The Results</h2>
                         <ul className="space-y-4">
                             {[
-                                "40% Reduction in Infrastructure Costs",
-                                "99.99% Uptime Achieved",
-                                "Deployment frequency increased from Monthly to Daily",
-                                "Enhanced Security Posture"
+                                "Significant Performance Gains",
+                                "99.99% Reliability",
+                                "Reduced Operational Overhead",
+                                "Future-ready Architecture"
                             ].map((item) => (
                                 <li key={item} className="flex items-center text-gray-300">
                                     <TrendingUp className="w-5 h-5 text-green-500 mr-3" />
@@ -53,20 +70,12 @@ export default function CaseStudyDetail() {
                     <h3 className="text-xl font-bold mb-4">Project Overview</h3>
                     <div className="space-y-4 mb-8">
                         <div>
-                            <span className="text-gray-500 text-sm block">Client</span>
-                            <span className="text-white font-medium">Global Finance Corp</span>
-                        </div>
-                        <div>
                             <span className="text-gray-500 text-sm block">Industry</span>
-                            <span className="text-white font-medium">FinTech</span>
+                            <span className="text-white font-medium">{study.industry}</span>
                         </div>
                         <div>
                             <span className="text-gray-500 text-sm block">Services</span>
-                            <span className="text-white font-medium">Cloud Migration, DevOps</span>
-                        </div>
-                        <div>
-                            <span className="text-gray-500 text-sm block">Duration</span>
-                            <span className="text-white font-medium">6 Months</span>
+                            <span className="text-white font-medium">Digital Transformation</span>
                         </div>
                     </div>
                     <Button className="w-full" href="/contact">Start Your Project</Button>

@@ -4,6 +4,24 @@ import { navigation } from "@/lib/navigation";
 import { Button } from "@/components/ui/Button";
 import { CheckCircle2 } from "lucide-react";
 
+export async function generateStaticParams() {
+    const servicesNode = navigation.find(n => n.label === "Services");
+    const paths: { category: string; slug: string }[] = [];
+
+    servicesNode?.children?.forEach(category => {
+        const categorySlug = category.href.split('/').pop() || "";
+        category.children?.forEach(service => {
+            const serviceSlug = service.href.split('/').pop() || "";
+            paths.push({
+                category: categorySlug,
+                slug: serviceSlug
+            });
+        });
+    });
+
+    return paths;
+}
+
 export default async function ServiceDetailPage({ params }: { params: Promise<{ category: string, slug: string }> }) {
     const { category, slug } = await params;
     const servicesNode = navigation.find(n => n.label === "Services");
