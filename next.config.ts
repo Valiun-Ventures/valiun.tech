@@ -2,6 +2,8 @@ import type { NextConfig } from "next";
 
 const nextConfig: NextConfig = {
   output: 'export',
+  basePath: '/valiun.tech',
+  assetPrefix: '/valiun.tech',
   reactStrictMode: true,
   compress: true,
   images: {
