@@ -1,0 +1,5 @@
+name = "valiun-tech"
+compatibility_date = "2026-01-18"
+
+# Serve the static Next.js export from the build output directory.
+assets = { directory = "./out" }
