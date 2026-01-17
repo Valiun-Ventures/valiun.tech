@@ -1,13 +1,19 @@
 import type { NextConfig } from "next";
 
-// Default to GitHub Pages base path, but auto-disable for Cloudflare Pages or allow overriding via env.
+// Use GitHub Pages base path only when building in GitHub; default to root for Cloudflare and others.
 const isCloudflarePages =
   process.env.CF_PAGES === "1" || process.env.CF_PAGES === "true";
-const defaultBasePath = isCloudflarePages ? "" : "/valiun.tech";
-const basePath = process.env.NEXT_BASE_PATH ?? defaultBasePath;
+const repo = (process.env.GITHUB_REPOSITORY ?? "").toLowerCase();
+const isGithubActions = process.env.GITHUB_ACTIONS === "true";
+const isGithubPages =
+  process.env.GITHUB_PAGES === "true" ||
+  (isGithubActions && repo === "valiun-ventures/valiun.tech");
 
-const defaultAssetPrefix = isCloudflarePages ? "" : basePath;
-const assetPrefix = process.env.NEXT_ASSET_PREFIX ?? defaultAssetPrefix;
+const basePath =
+  process.env.NEXT_BASE_PATH ??
+  (isCloudflarePages ? "" : isGithubPages ? "/valiun.tech" : "");
+const assetPrefix =
+  process.env.NEXT_ASSET_PREFIX ?? (basePath ? basePath : "");
 
 const nextConfig: NextConfig = {
   output: "export",
