@@ -1,4 +1,4 @@
-name = "valiun-tech"
+name = "valiun-main"
 compatibility_date = "2026-01-18"
 
 # Serve the static Next.js export from the build output directory.
