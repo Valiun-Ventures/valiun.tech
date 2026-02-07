@@ -26,7 +26,7 @@ export default function PrivacyPage() {
                 {/* ... More sections would go here ... */}
 
                 <h2 className="text-white mt-8 mb-4">3. Contact Us</h2>
-                <p>If you have any questions about this privacy policy, please contact us at hello@valiuntech.com</p>
+                <p>If you have any questions about this privacy policy, please contact us at contact@valiun.com</p>
             </div>
         </Section>
     );

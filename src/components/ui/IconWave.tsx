@@ -39,13 +39,13 @@ export function IconWave() {
     }, [animate, scope]);
 
     return (
-        <div className="relative w-full overflow-hidden py-32 bg-black/20 border-y border-white/5">
+        <div className="relative w-full overflow-hidden py-28 bg-black/20 border-y border-white/5 px-4 sm:px-6 lg:px-10 xl:px-16">
             {/* Gradient Masks for smooth fade in/out */}
             <div className="absolute left-0 top-0 bottom-0 w-32 md:w-64 bg-gradient-to-r from-black via-black/80 to-transparent z-10" />
             <div className="absolute right-0 top-0 bottom-0 w-32 md:w-64 bg-gradient-to-l from-black via-black/80 to-transparent z-10" />
 
             {/* Scrolling Wave Container */}
-            <div ref={scope} className="flex w-max">
+            <div ref={scope} className="flex w-max max-w-7xl mx-auto">
                 {allIcons.map((Icon, i) => {
                     // Generate random parameters for "uneven" feel
                     // Using index-based pseudo-random to keep hydration consistent

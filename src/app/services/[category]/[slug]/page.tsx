@@ -53,7 +53,7 @@ export default async function ServiceDetailPage({ params }: { params: Promise<{ 
                 <div>
                     <h2 className="text-3xl font-bold mb-6">Why Choose Our {serviceData.label}?</h2>
                     <p className="text-gray-400 mb-8 text-lg leading-relaxed">
-                        At Valiun Tech, we don't just write code; we engineer solutions. Our approach to {serviceData.label} integrates advanced methodologies with a deep understanding of your business goals.
+                        At Valiun Tech, we don&apos;t just write code; we engineer solutions. Our approach to {serviceData.label} integrates advanced methodologies with a deep understanding of your business goals.
                     </p>
                     <ul className="space-y-4">
                         {[

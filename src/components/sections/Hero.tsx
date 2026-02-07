@@ -66,7 +66,7 @@ export function Hero() {
             <div className="absolute bottom-0 right-0 w-[500px] h-[500px] bg-purple-500/10 rounded-full blur-[128px]" />
 
             {/* Content Container */}
-            <div className="container relative z-10 px-6 mx-auto text-center">
+            <div className="relative z-10 w-full max-w-6xl px-4 sm:px-6 lg:px-10 xl:px-16 mx-auto text-center">
                 <m.div
                     initial={{ opacity: 0, y: 30 }}
                     animate={{ opacity: 1, y: 0 }}
@@ -76,8 +76,8 @@ export function Hero() {
                         <span className="text-sm font-medium text-blue-400 tracking-wide">PIONEERING THE FUTURE</span>
                     </div>
 
-                    <h1 className="text-6xl md:text-8xl lg:text-9xl font-bold tracking-tighter text-white mb-8">
-                        Future of Tech <br />
+                    <h1 className="text-5xl md:text-8xl lg:text-9xl font-bold tracking-tighter text-white mb-8">
+                        Future of Tech <br className="hidden sm:inline" />
                         is <span className="text-transparent bg-clip-text bg-gradient-to-r from-blue-400 via-purple-500 to-blue-600 animate-gradient-x">Valiun.</span>
                     </h1>
 

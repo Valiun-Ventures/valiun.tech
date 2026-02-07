@@ -14,7 +14,7 @@ export function CallToAction() {
 
                     <h2 className="text-3xl md:text-5xl font-bold mb-6">Ready to Transform Your Business?</h2>
                     <p className="text-xl text-gray-400 mb-8 max-w-2xl mx-auto">
-                        Let's build something extraordinary together. Schedule a free consultation with our experts.
+                        Let&apos;s build something extraordinary together. Schedule a free consultation with our experts.
                     </p>
                     <div className="flex flex-col sm:flex-row gap-4 justify-center relative z-10">
                         <Button size="lg" href="/contact">

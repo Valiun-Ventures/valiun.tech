@@ -1,6 +1,6 @@
 "use client";
 
-import { m, useInView, useAnimation, Variant } from "framer-motion";
+import { m, useInView, useAnimation } from "framer-motion";
 import { useEffect, useRef } from "react";
 
 interface RevealProps {
@@ -8,9 +8,11 @@ interface RevealProps {
     width?: "fit-content" | "100%";
     delay?: number;
     className?: string;
+    x?: number;
+    y?: number;
 }
 
-export const Reveal = ({ children, width = "fit-content", delay = 0.25, className }: RevealProps) => {
+export const Reveal = ({ children, width = "fit-content", delay = 0.25, className, x = 0, y = 75 }: RevealProps) => {
     const ref = useRef(null);
     const isInView = useInView(ref, { once: true });
     const mainControls = useAnimation();
@@ -25,8 +27,8 @@ export const Reveal = ({ children, width = "fit-content", delay = 0.25, classNam
         <div ref={ref} style={{ position: "relative", width, overflow: "hidden" }} className={className}>
             <m.div
                 variants={{
-                    hidden: { opacity: 0, y: 75 },
-                    visible: { opacity: 1, y: 0 },
+                    hidden: { opacity: 0, y: y, x: x },
+                    visible: { opacity: 1, y: 0, x: 0 },
                 }}
                 initial="hidden"
                 animate={mainControls}

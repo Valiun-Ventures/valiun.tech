@@ -39,7 +39,7 @@ export default function CaseStudiesPage() {
                 </div>
                 <h1 className="text-5xl md:text-6xl font-bold mb-6">Proven Results</h1>
                 <p className="text-xl text-gray-400 max-w-3xl mx-auto">
-                    See how we've helped leading enterprises transform their business with technology.
+                    See how we&apos;ve helped leading enterprises transform their business with technology.
                 </p>
             </Section>
 

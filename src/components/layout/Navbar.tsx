@@ -29,13 +29,22 @@ export function Navbar() {
         <nav
             className={cn(
                 "fixed top-0 left-0 right-0 z-50 transition-all duration-300 border-b border-transparent",
-                scrolled ? "bg-black/80 backdrop-blur-md border-white/10 py-4" : "bg-transparent py-6"
+                scrolled ? "bg-black/80 backdrop-blur-md border-white/10 py-2.5" : "bg-transparent py-4"
             )}
         >
-            <div className="container mx-auto px-6 flex items-center justify-between">
-                <Logo variant="white" />
+            <div className="w-full px-6 md:px-10 lg:px-12 flex items-center justify-between">
+                {/* Logo Section */}
+                <div className="flex-1 flex justify-start">
+                    <m.div
+                        layoutId="brand-logo-wrapper"
+                        className="relative z-50 flex items-center"
+                        transition={{ duration: 0.8, ease: [0.6, 0.01, -0.05, 0.9] }}
+                    >
+                        <Logo variant="white" className="!text-2xl md:!text-3xl" />
+                    </m.div>
+                </div>
 
-                {/* Desktop Navigation */}
+                {/* Desktop Navigation Section - Centered */}
                 <div className="hidden lg:flex items-center space-x-8">
                     {navigation.map((item) => (
                         <div
@@ -85,23 +94,25 @@ export function Navbar() {
                     ))}
                 </div>
 
-                {/* CTA Button */}
-                <div className="hidden lg:block">
-                    <Link
-                        href="/contact"
-                        className="px-6 py-2.5 bg-blue-600 hover:bg-blue-700 text-white text-sm font-semibold rounded-full transition-all"
-                    >
-                        Get a Quote
-                    </Link>
-                </div>
+                {/* CTA Button Section - Right Aligned */}
+                <div className="flex-1 flex justify-end items-center gap-4">
+                    <div className="hidden lg:block">
+                        <Link
+                            href="/contact"
+                            className="px-6 py-2.5 bg-blue-600 hover:bg-blue-700 text-white text-sm font-semibold rounded-full transition-all"
+                        >
+                            Get a Quote
+                        </Link>
+                    </div>
 
-                {/* Mobile Menu Button */}
-                <button
-                    className="lg:hidden text-white"
-                    onClick={() => setIsOpen(!isOpen)}
-                >
-                    {isOpen ? <X /> : <Menu />}
-                </button>
+                    {/* Mobile Menu Button */}
+                    <button
+                        className="lg:hidden text-white"
+                        onClick={() => setIsOpen(!isOpen)}
+                    >
+                        {isOpen ? <X /> : <Menu />}
+                    </button>
+                </div>
             </div>
 
             {/* Mobile Navigation */}

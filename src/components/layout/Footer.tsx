@@ -1,7 +1,7 @@
 import Link from "next/link";
 import { navigation } from "@/lib/navigation";
 import { Logo } from "@/components/ui/Logo";
-import { Facebook, Twitter, Linkedin, Github, Instagram } from "lucide-react";
+import { Twitter, Linkedin, Github, Instagram } from "lucide-react";
 
 export function Footer() {
     return (

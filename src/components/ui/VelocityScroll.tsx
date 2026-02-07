@@ -71,7 +71,7 @@ function ParallaxText({ children, baseVelocity = 100 }: ParallaxProps) {
 
 export function VelocityScroll() {
     return (
-        <section className="py-24 overflow-hidden border-y border-white/5 bg-black/50">
+        <section className="py-20 lg:py-24 overflow-hidden border-y border-white/5 bg-black/50 px-4 sm:px-6 lg:px-10 xl:px-16">
             <ParallaxText baseVelocity={5}>Innovate • Transform • Scale •</ParallaxText>
             <ParallaxText baseVelocity={-5}>Agentic AI • Cloud Native • Enterprise •</ParallaxText>
         </section>

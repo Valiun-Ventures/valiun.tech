@@ -31,3 +31,32 @@ body {
   font-family: var(--font-inter), sans-serif;
   overflow-x: hidden;
 }
+
+@keyframes scan-y {
+  0% { top: 0%; opacity: 0; }
+  10% { opacity: 1; }
+  90% { opacity: 1; }
+  100% { top: 100%; opacity: 0; }
+}
+
+@keyframes fill-bar {
+  from { width: 0%; }
+  to { width: 100%; }
+}
+
+@keyframes scrolling-text {
+  from { transform: translateY(0); }
+  to { transform: translateY(-50%); }
+}
+
+.animate-scan-y {
+  animation: scan-y 3s linear infinite;
+}
+
+.animate-fill-bar {
+  animation: fill-bar 1.5s ease-out forwards;
+}
+
+.animate-scrolling-text {
+  animation: scrolling-text 10s linear infinite;
+}

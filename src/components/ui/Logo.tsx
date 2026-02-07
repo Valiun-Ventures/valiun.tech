@@ -1,19 +1,23 @@
-import Image from "next/image";
 import Link from "next/link";
+import Image from "next/image";
 
 interface LogoProps {
     variant?: "black" | "white";
     className?: string;
 }
 
-export function Logo({ variant = "white", className }: LogoProps) {
+export function Logo({ className }: LogoProps) {
     return (
-        <Link href="/" className={`relative block w-32 h-10 ${className}`}>
+        <Link
+            href="/"
+            className={`flex items-center ${className}`}
+        >
             <Image
-                src={variant === "white" ? "/images/logo-white.png" : "/images/logo-black.png"}
-                alt="Valiun Tech"
-                fill
-                className="object-contain"
+                src="https://ik.imagekit.io/q0gorn2pwv/Untitled%20design%20(19)%20(6).png"
+                alt="Valiun Logo"
+                width={160}
+                height={50}
+                className="h-12 w-auto md:h-14"
                 priority
             />
         </Link>

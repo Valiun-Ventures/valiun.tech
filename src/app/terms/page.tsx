@@ -19,7 +19,7 @@ export default function TermsPage() {
                 {/* ... More sections ... */}
 
                 <h2 className="text-white mt-8 mb-4">3. Contact Us</h2>
-                <p>If you have any questions about these Terms and Conditions, You can contact us at hello@valiuntech.com</p>
+                <p>If you have any questions about these Terms and Conditions, You can contact us at contact@valiun.com</p>
             </div>
         </Section>
     );

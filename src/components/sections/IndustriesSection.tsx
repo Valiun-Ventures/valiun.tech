@@ -1,13 +1,11 @@
 "use client";
 
-import { Section } from "@/components/ui/Section";
 import { Reveal } from "@/components/ui/Reveal";
 import Link from "next/link";
 import { m } from "framer-motion";
 import {
     Building2, Stethoscope, GraduationCap, Users,
-    Home, Plane, ShoppingBag, Briefcase, ArrowRight,
-    Cpu, Zap
+    Home, Plane, ShoppingBag, Briefcase
 } from "lucide-react";
 import { cn } from "@/lib/utils";
 

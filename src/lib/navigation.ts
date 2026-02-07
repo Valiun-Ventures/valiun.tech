@@ -118,6 +118,10 @@ export const navigation: NavItem[] = [
         href: "/case-studies",
     },
     {
+        label: "Blog",
+        href: "/blog",
+    },
+    {
         label: "Company",
         href: "/company",
         children: [
