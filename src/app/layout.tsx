@@ -17,6 +17,7 @@ export const metadata: Metadata = {
 
 import { AnimationProvider } from "@/components/ui/AnimationProvider";
 import { ThemeProvider } from "@/components/ui/ThemeProvider";
+import Script from "next/script";
 
 export default function RootLayout({
   children,
@@ -25,6 +26,23 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en" className="dark scroll-smooth" suppressHydrationWarning>
+      <head>
+        {/* Google Tag (gtag.js) */}
+        <Script
+          async
+          src="https://www.googletagmanager.com/gtag/js?id=G-SZ5VPTS4GT"
+          strategy="afterInteractive"
+        />
+        <Script id="google-tag" strategy="afterInteractive">
+          {`
+            window.dataLayer = window.dataLayer || [];
+            function gtag(){dataLayer.push(arguments);}
+            gtag('js', new Date());
+
+            gtag('config', 'G-SZ5VPTS4GT');
+          `}
+        </Script>
+      </head>
       <body className={`${inter.className} bg-[#030303] text-white antialiased overflow-x-hidden selection:bg-blue-500/30`}>
         <ThemeProvider attribute="class" defaultTheme="dark" enableSystem={false}>
           <AnimationProvider>
