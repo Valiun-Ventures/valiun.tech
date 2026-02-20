@@ -30,7 +30,7 @@ export default function RootLayout({
         {/* Google Tag (gtag.js) */}
         <Script
           async
-          src="https://www.googletagmanager.com/gtag/js?id=G-SZ5VPTS4GT"
+          src="https://www.googletagmanager.com/gtag/js?id=G-LLLCNMRSHD"
           strategy="afterInteractive"
         />
         <Script id="google-tag" strategy="afterInteractive">
@@ -39,7 +39,7 @@ export default function RootLayout({
             function gtag(){dataLayer.push(arguments);}
             gtag('js', new Date());
 
-            gtag('config', 'G-SZ5VPTS4GT');
+            gtag('config', 'G-LLLCNMRSHD');
           `}
         </Script>
         {/* Microsoft Clarity */}
