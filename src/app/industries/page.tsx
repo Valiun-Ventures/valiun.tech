@@ -1,4 +1,9 @@
+import { Metadata } from "next";
 import { Section } from "@/components/ui/Section";
+
+export const metadata: Metadata = {
+    title: "Industries",
+};
 import { navigation } from "@/lib/navigation";
 import Link from "next/link";
 import { Building2, Stethoscope, GraduationCap, Users, Home, Plane, ShoppingBag, Briefcase, ArrowRight } from "lucide-react";

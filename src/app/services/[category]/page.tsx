@@ -1,8 +1,21 @@
+import { Metadata } from "next";
 import { notFound } from "next/navigation";
 import { Section } from "@/components/ui/Section";
 import { navigation } from "@/lib/navigation";
 import Link from "next/link";
 import { ArrowRight } from "lucide-react";
+
+export async function generateMetadata({ params }: { params: Promise<{ category: string }> }): Promise<Metadata> {
+    const { category } = await params;
+    const servicesNode = navigation.find(n => n.label === "Services");
+    const categoryData = servicesNode?.children?.find(c => c.href.endsWith(`/${category}`));
+
+    if (!categoryData) return { title: "Category Not Found" };
+
+    return {
+        title: categoryData.label,
+    };
+}
 
 // This generates params for static export if needed, or just type definition
 export async function generateStaticParams() {

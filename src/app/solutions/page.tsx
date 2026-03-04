@@ -1,4 +1,9 @@
+import { Metadata } from "next";
 import { Section } from "@/components/ui/Section";
+
+export const metadata: Metadata = {
+    title: "Solutions",
+};
 import { Card, CardTitle, CardDescription } from "@/components/ui/Card";
 import { navigation } from "@/lib/navigation";
 import Link from "next/link";

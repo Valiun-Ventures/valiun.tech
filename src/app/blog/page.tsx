@@ -1,4 +1,9 @@
+import { Metadata } from "next";
 import { Section } from "@/components/ui/Section";
+
+export const metadata: Metadata = {
+    title: "Blog",
+};
 import { Reveal } from "@/components/ui/Reveal";
 import Link from "next/link";
 import { m } from "framer-motion";

@@ -1,4 +1,9 @@
+import { Metadata } from "next";
 import { Section } from "@/components/ui/Section";
+
+export const metadata: Metadata = {
+    title: "Terms & Conditions",
+};
 
 export default function TermsPage() {
     return (

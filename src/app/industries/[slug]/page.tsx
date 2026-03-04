@@ -1,8 +1,21 @@
+import { Metadata } from "next";
 import { notFound } from "next/navigation";
 import { Section } from "@/components/ui/Section";
 import { navigation } from "@/lib/navigation";
 import { Button } from "@/components/ui/Button";
 import { Check, AreaChart, Zap, Shield } from "lucide-react";
+
+export async function generateMetadata({ params }: { params: Promise<{ slug: string }> }): Promise<Metadata> {
+    const { slug } = await params;
+    const industriesNode = navigation.find(n => n.label === "Industries");
+    const industryData = industriesNode?.children?.find(c => c.href.endsWith(`/${slug}`));
+
+    if (!industryData) return { title: "Industry Not Found" };
+
+    return {
+        title: `${industryData.label} Solutions`,
+    };
+}
 
 export async function generateStaticParams() {
     const industries = navigation.find(n => n.label === "Industries")?.children || [];

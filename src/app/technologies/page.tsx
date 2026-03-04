@@ -1,4 +1,9 @@
+import { Metadata } from "next";
 import { Section } from "@/components/ui/Section";
+
+export const metadata: Metadata = {
+    title: "Technologies",
+};
 import { Reveal } from "@/components/ui/Reveal";
 import { SpotlightCard } from "@/components/ui/SpotlightCard";
 import { Button } from "@/components/ui/Button";

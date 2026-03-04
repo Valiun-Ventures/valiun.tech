@@ -11,10 +11,14 @@ import Script from "next/script";
 const inter = Inter({ subsets: ["latin"] });
 
 export const metadata: Metadata = {
-  title: "Valiun Tech | Enterprise Agentic AI & Cloud Architecture",
+  title: {
+    default: "Valiun Tech | Enterprise Agentic AI & Cloud Architecture",
+    template: "%s | Valiun Tech",
+  },
   description: "Valiun Tech specializes in Agentic AI solutions, scalable cloud architectures (AWS/Azure), and premium digital transformation for enterprises.",
   icons: {
-    icon: "/favicon.ico",
+    icon: "/favicon.png",
+    apple: "/favicon.png",
   },
 };
 

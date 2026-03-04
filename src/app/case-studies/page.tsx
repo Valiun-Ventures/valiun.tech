@@ -1,4 +1,9 @@
+import { Metadata } from "next";
 import { Section } from "@/components/ui/Section";
+
+export const metadata: Metadata = {
+    title: "Case Studies",
+};
 import { Card } from "@/components/ui/Card";
 import Link from "next/link";
 import { ArrowRight, TrendingUp, Users, Clock } from "lucide-react";

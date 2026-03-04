@@ -1,8 +1,21 @@
+import { Metadata } from "next";
 import { notFound } from "next/navigation";
 import { Section } from "@/components/ui/Section";
 import { navigation } from "@/lib/navigation";
 import { Button } from "@/components/ui/Button";
 import { CheckCircle2 } from "lucide-react";
+
+export async function generateMetadata({ params }: { params: Promise<{ slug: string }> }): Promise<Metadata> {
+    const { slug } = await params;
+    const solutionsNode = navigation.find(n => n.label === "Solutions");
+    const solutionData = solutionsNode?.children?.find(c => c.href.endsWith(`/${slug}`));
+
+    if (!solutionData) return { title: "Solution Not Found" };
+
+    return {
+        title: solutionData.label,
+    };
+}
 
 export async function generateStaticParams() {
     const solutions = navigation.find(n => n.label === "Solutions")?.children || [];

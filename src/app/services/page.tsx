@@ -1,4 +1,9 @@
+import { Metadata } from "next";
 import { Section } from "@/components/ui/Section";
+
+export const metadata: Metadata = {
+    title: "Services",
+};
 import { Reveal } from "@/components/ui/Reveal";
 import Link from "next/link";
 import { Bot, Code, Smartphone, Cloud, Database, Palette, Shield, Terminal, ArrowRight } from "lucide-react";
