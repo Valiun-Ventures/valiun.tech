@@ -1,218 +1,289 @@
 "use client";
 
+import { useScroll, useTransform, m } from "framer-motion";
+import { useEffect, useRef, useState, useMemo } from "react";
 import { Button } from "@/components/ui/Button";
-import { m, useMotionTemplate, useMotionValue, animate, useSpring, useTransform } from "framer-motion";
-import { ArrowRight, Bot, Cloud, Zap, Sparkles, Binary } from "lucide-react";
-import { MouseEvent, useEffect, useState } from "react";
+import { ArrowRight } from "lucide-react";
+
+const FRAME_COUNT = 240;
+
+function pad(num: number, size: number) {
+    let s = num + "";
+    while (s.length < size) s = "0" + s;
+    return s;
+}
 
 export function Hero() {
-    const [isMounted, setIsMounted] = useState(false);
-    const mouseX = useMotionValue(0);
-    const mouseY = useMotionValue(0);
+    const containerRef = useRef<HTMLDivElement>(null);
+    const canvasRef = useRef<HTMLCanvasElement>(null);
+    const [images, setImages] = useState<HTMLImageElement[]>([]);
+    const [imagesLoaded, setImagesLoaded] = useState(0);
 
-    // Smoothed mouse values for parallax effects
-    const springConfig = { damping: 25, stiffness: 150 };
-    const smoothX = useSpring(mouseX, springConfig);
-    const smoothY = useSpring(mouseY, springConfig);
+    const { scrollYProgress } = useScroll({
+        target: containerRef,
+        offset: ["start start", "end end"]
+    });
 
+    // We map 0-1 scroll progress to frame 1-240
+    const frameIndex = useTransform(scrollYProgress, [0, 1], [1, FRAME_COUNT]);
+
+    // Preload images
     useEffect(() => {
-        setIsMounted(true);
-        if (typeof window !== "undefined") {
-            mouseX.set(window.innerWidth / 2);
-            mouseY.set(window.innerHeight / 2);
+        const loadedImages: HTMLImageElement[] = [];
+        let loadedCount = 0;
+
+        for (let i = 1; i <= FRAME_COUNT; i++) {
+            const img = new Image();
+            // Path structure established from earlier list_dir
+            img.src = `/images/hero-sequence/ezgif-frame-${pad(i, 3)}.jpg`;
+            img.onload = () => {
+                loadedCount++;
+                setImagesLoaded(loadedCount);
+            };
+            loadedImages.push(img);
         }
-    }, [mouseX, mouseY]);
+        setImages(loadedImages);
+    }, []);
 
-    function handleMouseMove({ currentTarget, clientX, clientY }: MouseEvent) {
-        const { left, top } = currentTarget.getBoundingClientRect();
-        mouseX.set(clientX - left);
-        mouseY.set(clientY - top);
-    }
+    // Draw frame to canvas attached to scroll
+    useEffect(() => {
+        if (imagesLoaded < FRAME_COUNT || !canvasRef.current) return;
 
-    // Parallax transforms for floating elements
-    const rotateX = useTransform(smoothY, [0, 1000], [5, -5]);
-    const rotateY = useTransform(smoothX, [0, 1500], [-5, 5]);
+        const canvas = canvasRef.current;
+        const ctx = canvas.getContext("2d", { alpha: false }); // alpha false optimizes performance
+        if (!ctx) return;
 
-    const spotlightBackground = useMotionTemplate`
-        radial-gradient(
-            900px circle at ${mouseX}px ${mouseY}px,
-            rgba(59, 130, 246, 0.12),
-            transparent 80%
-        )
-    `;
+        let animationFrameId: number;
 
-    const card1X = useTransform(smoothX, [0, 1500], [20, -20]);
-    const card1Y = useTransform(smoothY, [0, 1000], [20, -20]);
-    const card2X = useTransform(smoothX, [0, 1500], [-30, 30]);
-    const card2Y = useTransform(smoothY, [0, 1000], [-30, 30]);
-    const badgeY = useTransform(smoothY, [0, 1000], [40, -40]);
+        // Dynamic resize for maximum sharpness (Retina/High-DPI support)
+        const setCanvasSize = () => {
+            const dpr = window.devicePixelRatio || 1;
+            canvas.width = window.innerWidth * dpr;
+            canvas.height = window.innerHeight * dpr;
+            ctx.scale(dpr, dpr);
 
-    if (!isMounted) return <div className="min-h-screen bg-black" />;
+            // Force redraw of current frame on resize
+            drawFrame(Math.min(FRAME_COUNT - 1, Math.max(0, Math.floor(frameIndex.get()) - 1)));
+        };
+
+        const drawFrame = (frameNo: number) => {
+            const img = images[frameNo];
+            if (img && img.complete) {
+                // Clear to match the exact black background #050505
+                ctx.fillStyle = "#050505";
+                ctx.fillRect(0, 0, window.innerWidth, window.innerHeight);
+
+                // Draw image preserving aspect ratio and centering
+                const hRatio = window.innerWidth / img.width;
+                const vRatio = window.innerHeight / img.height;
+                // Use Math.max if we want to cover (Apple style), Math.min to contain
+                const ratio = Math.max(hRatio, vRatio);
+
+                const cw = img.width * ratio;
+                const ch = img.height * ratio;
+                const cx = (window.innerWidth - cw) / 2;
+                const cy = (window.innerHeight - ch) / 2;
+
+                // Push quality up slightly
+                ctx.imageSmoothingEnabled = true;
+                ctx.imageSmoothingQuality = "high";
+
+                // Enhance image quality slightly via Canvas API filters
+                ctx.filter = "contrast(1.2) saturate(1.25) brightness(1.08) drop-shadow(0px 0px 20px rgba(255,255,255,0.05))";
+                ctx.drawImage(img, 0, 0, img.width, img.height, cx, cy, cw, ch);
+                ctx.filter = "none"; // Reset filter
+            }
+        };
+
+        const unsubscribe = frameIndex.on("change", (latest) => {
+            const frame = Math.min(FRAME_COUNT - 1, Math.max(0, Math.floor(latest) - 1));
+            cancelAnimationFrame(animationFrameId);
+            animationFrameId = requestAnimationFrame(() => drawFrame(frame));
+        });
+
+        // Setup size and initial frame
+        window.addEventListener("resize", setCanvasSize);
+        setCanvasSize();
+
+        return () => {
+            window.removeEventListener("resize", setCanvasSize);
+            unsubscribe();
+            cancelAnimationFrame(animationFrameId);
+        };
+    }, [frameIndex, images, imagesLoaded]);
+
+
+    // --- Storytelling Narrative Opacities mapped to Scroll % --- //
+    // Intro (0 - 15%)
+    const introOpacity = useTransform(scrollYProgress, [0, 0.05, 0.12, 0.15], [1, 1, 0, 0]);
+
+    // Engineering Reveal (20% - 40%)
+    const engOpacity = useTransform(scrollYProgress, [0.15, 0.20, 0.35, 0.40], [0, 1, 1, 0]);
+    const engY = useTransform(scrollYProgress, [0.15, 0.20], [50, 0]);
+
+    // Noise Cancelling (45% - 65%)
+    const ancOpacity = useTransform(scrollYProgress, [0.40, 0.45, 0.60, 0.65], [0, 1, 1, 0]);
+    const ancY = useTransform(scrollYProgress, [0.40, 0.45], [50, 0]);
+
+    // Sound & Upscaling (70% - 85%)
+    const soundOpacity = useTransform(scrollYProgress, [0.65, 0.70, 0.80, 0.85], [0, 1, 1, 0]);
+    const soundY = useTransform(scrollYProgress, [0.65, 0.70], [50, 0]);
+
+    // Reassembly & Outro (90% - 100%)
+    const outroOpacity = useTransform(scrollYProgress, [0.85, 0.90, 1, 1], [0, 1, 1, 1]);
+    const outroY = useTransform(scrollYProgress, [0.85, 0.90], [50, 0]);
+
 
     return (
-        <section
-            className="relative w-full min-h-screen flex items-center justify-center overflow-hidden bg-[#030303] py-20 lg:py-0"
-            onMouseMove={handleMouseMove}
-        >
-            {/* --- Background Layers --- */}
+        <section ref={containerRef} className="relative w-full h-[400vh] bg-[#050505] font-sans">
 
-            {/* Dynamic Cursor Spotlight */}
-            <m.div
-                className="pointer-events-none absolute -inset-px opacity-100 transition duration-300 z-0"
-                style={{
-                    background: spotlightBackground,
-                }}
-            />
+            {/* Sticky Canvas Container */}
+            <div className="sticky top-0 w-full h-screen overflow-hidden bg-[#050505]">
 
-            {/* Mesh Gradient Bloom */}
-            <div className="absolute top-[-10%] left-[-10%] w-[50%] h-[50%] bg-blue-600/10 blur-[120px] rounded-full animate-pulse" />
-            <div className="absolute bottom-[-10%] right-[-10%] w-[50%] h-[50%] bg-purple-600/10 blur-[120px] rounded-full animate-pulse" style={{ animationDelay: '2s' }} />
-
-            {/* Grid Pattern */}
-            <div className="absolute inset-0 z-0 bg-[linear-gradient(to_right,#ffffff05_1px,transparent_1px),linear-gradient(to_bottom,#ffffff05_1px,transparent_1px)] bg-[size:40px_40px] [mask-image:radial-gradient(ellipse_80%_50%_at_50%_0%,#000_70%,transparent_100%)]" />
-
-            {/* Grain/Noise Overlay */}
-            <div className="absolute inset-0 opacity-[0.03] pointer-events-none z-0 bg-[url('https://www.transparenttextures.com/patterns/carbon-fibre.png')]" />
-
-            {/* --- Floating Elements (Desktop Only) --- */}
-            <div className="hidden lg:block absolute inset-0 pointer-events-none z-10">
-                {/* Top Left Card */}
-                <m.div
-                    style={{ x: card1X, y: card1Y, rotateX, rotateY }}
-                    className="absolute top-[20%] left-[10%] p-4 rounded-2xl bg-white/[0.03] border border-white/10 backdrop-blur-md"
-                >
-                    <div className="flex items-center gap-3">
-                        <div className="size-8 rounded-lg bg-blue-500/20 flex items-center justify-center text-blue-400">
-                            <Bot className="w-5 h-5" />
-                        </div>
-                        <span className="text-xs font-semibold text-white/70 uppercase tracking-widest">Agentic AI</span>
-                    </div>
-                </m.div>
-
-                {/* Bottom Right Card */}
-                <m.div
-                    style={{ x: card2X, y: card2Y, rotateX, rotateY }}
-                    className="absolute bottom-[25%] right-[12%] p-5 rounded-2xl bg-white/[0.03] border border-white/10 backdrop-blur-md"
-                >
-                    <div className="flex items-center gap-3">
-                        <div className="size-10 rounded-lg bg-purple-500/20 flex items-center justify-center text-purple-400">
-                            <Cloud className="w-6 h-6" />
-                        </div>
-                        <div className="flex flex-col">
-                            <span className="text-[10px] font-bold text-purple-400 uppercase tracking-tighter">Infrastructure</span>
-                            <span className="text-sm font-bold text-white tracking-tight">Cloud Native</span>
+                {/* Loader showing exact 0% -> 100% until 240 frames are buffered */}
+                {imagesLoaded < FRAME_COUNT && (
+                    <div className="absolute inset-0 z-50 flex items-center justify-center bg-[#050505]">
+                        <div className="flex flex-col items-center">
+                            <span className="text-white/60 tracking-widest text-sm uppercase mb-4">Loading Sequence</span>
+                            <div className="w-48 h-1 bg-white/10 rounded-full overflow-hidden">
+                                <div
+                                    className="h-full bg-blue-600 transition-all duration-300"
+                                    style={{ width: `${(imagesLoaded / FRAME_COUNT) * 100}%` }}
+                                />
+                            </div>
                         </div>
                     </div>
-                </m.div>
+                )}
 
-                {/* Center Top Badge */}
+                <canvas
+                    ref={canvasRef}
+                    className="w-full h-full object-cover select-none pointer-events-none"
+                    style={{ background: "#050505" }}
+                />
+
+                {/* --- Text Overlays (Floating above canvas) --- */}
+
+                {/* Intro Section */}
                 <m.div
-                    style={{ y: badgeY }}
-                    className="absolute top-[15%] right-[25%] p-3 rounded-xl bg-white/[0.01] border border-white/5 backdrop-blur-sm"
+                    style={{ opacity: introOpacity }}
+                    className="absolute inset-0 flex flex-col items-center justify-center text-center px-4 w-full pointer-events-none"
                 >
-                    <Binary className="w-4 h-4 text-blue-500/40" />
+                    <m.div
+                        className="inline-block px-4 py-1.5 mb-6 rounded-full border border-purple-500/30 bg-purple-500/10 backdrop-blur-xl"
+                    >
+                        <span className="text-sm font-medium text-purple-400 tracking-wide uppercase">Engineering the Future</span>
+                    </m.div>
+                    <h1 className="text-5xl sm:text-7xl lg:text-[7rem] font-bold text-transparent bg-clip-text bg-gradient-to-r from-blue-400 via-purple-500 to-orange-400 mb-4 tracking-tight drop-shadow-2xl">
+                        Valiun Tech
+                    </h1>
+                    <p className="text-xl sm:text-2xl lg:text-3xl text-white/90 font-medium mb-3">
+                        The Future of Tech is Valiun.
+                    </p>
+                    <p className="text-sm sm:text-base text-white/60 max-w-lg font-light">
+                        We empower enterprises with Agentic AI, <br className="hidden sm:block" /> Scalable Architectures, and premium digital experiences.
+                    </p>
                 </m.div>
-            </div>
 
-            {/* --- Main Content --- */}
-            <div className="relative z-20 w-full max-w-7xl px-6 lg:px-12 mx-auto">
-                <div className="flex flex-col items-center text-center">
+                {/* Engineering Reveal Section */}
+                <m.div
+                    style={{ opacity: engOpacity, y: engY }}
+                    className="absolute inset-y-0 left-0 w-full lg:w-1/2 flex flex-col justify-center px-6 sm:px-12 lg:px-24 pointer-events-none"
+                >
+                    <h2 className="text-4xl sm:text-5xl lg:text-6xl font-bold text-transparent bg-clip-text bg-gradient-to-r from-blue-400 via-purple-500 to-orange-400 mb-6 tracking-tight drop-shadow-2xl">
+                        Agentic AI <br /> capabilities.
+                    </h2>
+                    <p className="text-lg text-white/60 max-w-md leading-relaxed font-light drop-shadow-lg mb-4">
+                        Empowering enterprises with intelligent automation and advanced machine learning models.
+                    </p>
+                    <p className="text-lg text-white/60 max-w-md leading-relaxed font-light drop-shadow-lg">
+                        Custom AI agents designed to optimize workflows and drive exponential growth.
+                    </p>
+                </m.div>
 
-                    {/* Top Pill */}
-                    <m.div
-                        initial={{ opacity: 0, scale: 0.9 }}
-                        animate={{ opacity: 1, scale: 1 }}
-                        transition={{ duration: 0.5 }}
-                        className="group relative inline-flex items-center gap-2 px-4 py-2 mb-10 rounded-full bg-white/[0.03] border border-white/10 backdrop-blur-xl hover:bg-white/[0.06] transition-all cursor-default"
-                    >
-                        <span className="relative flex h-2 w-2">
-                            <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-blue-500 opacity-75"></span>
-                            <span className="relative inline-flex rounded-full h-2 w-2 bg-blue-500"></span>
-                        </span>
-                        <span className="text-[10px] font-black uppercase tracking-[0.3em] text-blue-400/80">
-                            Enterprise Intelligence Systems
-                        </span>
-                        <Sparkles className="w-3.5 h-3.5 text-blue-400/50 group-hover:rotate-12 transition-transform" />
-                    </m.div>
+                {/* Noise Cancelling Section */}
+                <m.div
+                    style={{ opacity: ancOpacity, y: ancY }}
+                    className="absolute inset-y-0 right-0 w-full lg:w-[45%] flex flex-col justify-center text-left lg:text-right items-start lg:items-end px-6 sm:px-12 lg:px-24 pointer-events-none"
+                >
+                    <h2 className="text-4xl sm:text-5xl lg:text-6xl font-bold text-transparent bg-clip-text bg-gradient-to-r from-blue-400 via-purple-500 to-orange-400 mb-8 tracking-tight drop-shadow-2xl">
+                        Scalable <br /> architectures.
+                    </h2>
+                    <ul className="space-y-4 text-left lg:text-right">
+                        <li className="text-lg text-white/80 font-medium tracking-wide">Robust infrastructure designed for high availability.</li>
+                        <li className="text-lg text-white/80 font-medium tracking-wide">Microservices and serverless architectures tailored to your needs.</li>
+                        <li className="text-lg text-white/80 font-medium tracking-wide">Future-proof engineering that scales with your business.</li>
+                    </ul>
+                </m.div>
 
-                    {/* Heading */}
-                    <m.h1
-                        initial={{ opacity: 0, y: 30 }}
-                        animate={{ opacity: 1, y: 0 }}
-                        transition={{ duration: 0.8, delay: 0.2 }}
-                        className="text-5xl md:text-8xl lg:text-9xl font-black tracking-tighter text-white mb-8 leading-[0.9] md:leading-[0.85]"
-                    >
-                        Engineering <br className="hidden md:block" />
-                        the <span className="text-transparent bg-clip-text bg-gradient-to-r from-blue-400 via-purple-500 to-blue-400 animate-gradient-x">Future.</span>
-                    </m.h1>
+                {/* Sound Quality Section */}
+                <m.div
+                    style={{ opacity: soundOpacity, y: soundY }}
+                    className="absolute inset-y-0 left-0 w-full lg:w-1/2 flex flex-col justify-center px-6 sm:px-12 lg:px-24 pointer-events-none"
+                >
+                    <h2 className="text-4xl sm:text-5xl lg:text-6xl font-bold text-transparent bg-clip-text bg-gradient-to-r from-blue-400 via-purple-500 to-orange-400 mb-6 tracking-tight drop-shadow-2xl">
+                        Premium, <br /> digital experiences.
+                    </h2>
+                    <p className="text-lg text-white/60 max-w-md leading-relaxed font-light drop-shadow-lg mb-4">
+                        Awwwards-level design and flawless user interfaces.
+                    </p>
+                    <p className="text-lg text-white/60 max-w-md leading-relaxed font-light drop-shadow-lg">
+                        We craft experiences that captivate users and elevate enterprise brands.
+                    </p>
+                </m.div>
 
-                    {/* Subheading */}
-                    <m.p
-                        initial={{ opacity: 0, y: 20 }}
-                        animate={{ opacity: 1, y: 0 }}
-                        transition={{ duration: 0.8, delay: 0.4 }}
-                        className="text-gray-400 text-lg md:text-2xl max-w-3xl mx-auto mb-12 leading-relaxed font-light"
-                    >
-                        Valiun Tech delivers <span className="text-white font-medium">Agentic AI</span> and
-                        <span className="text-white font-medium"> Cloud Architectures</span> that transform
-                        enterprise complexity into competitive advantage.
-                    </m.p>
+                {/* Outro / Final State */}
+                <m.div
+                    style={{ opacity: outroOpacity, y: outroY }}
+                    className="absolute inset-0 flex flex-col items-center justify-center text-center px-4 w-full pointer-events-auto"
+                >
+                    <div className="absolute inset-0 bg-gradient-to-t from-[#050505] via-transparent to-transparent opacity-80 pointer-events-none" />
 
-                    {/* Actions */}
-                    <m.div
-                        initial={{ opacity: 0, y: 20 }}
-                        animate={{ opacity: 1, y: 0 }}
-                        transition={{ duration: 0.8, delay: 0.6 }}
-                        className="flex flex-col sm:flex-row gap-5 items-center justify-center w-full"
-                    >
-                        <Button
-                            size="lg"
-                            href="/contact"
-                            className="w-full sm:w-auto px-10 py-7 text-lg rounded-2xl bg-blue-600 hover:bg-blue-50 shadow-[0_20px_50px_rgba(59,130,246,0.25)] hover:shadow-[0_20px_50px_rgba(59,130,246,0.4)] transition-all group overflow-hidden relative"
+                    <div className="relative z-10 mt-[30vh]"> {/* Push content down so it doesn't block the reassembled headphones entirely */}
+                        <m.div
+                            initial={{ opacity: 0 }}
+                            animate={{ opacity: 1 }}
+                            transition={{ duration: 1, delay: 0.8 }}
+                            className="mb-8 border-b border-white/10 w-full flex items-center justify-center gap-8 pb-8"
                         >
-                            <span className="relative z-10 flex items-center gap-2">
-                                Start Your Transformation
-                                <ArrowRight className="w-5 h-5 group-hover:translate-x-1 transition-transform" />
-                            </span>
-                        </Button>
+                            <div className="flex flex-col items-center">
+                                <span className="text-3xl font-bold text-white mb-1">99<span className="text-purple-500">%</span></span>
+                                <span className="text-xs text-gray-500 font-semibold uppercase tracking-wider">Client Retention</span>
+                            </div>
+                            <div className="w-px h-10 bg-white/10" />
+                            <div className="flex flex-col items-center">
+                                <span className="text-3xl font-bold text-white mb-1">24<span className="text-blue-500">/7</span></span>
+                                <span className="text-xs text-gray-500 font-semibold uppercase tracking-wider">Enterprise Support</span>
+                            </div>
+                        </m.div>
 
-                        <Button
-                            variant="outline"
-                            size="lg"
-                            href="/services"
-                            className="w-full sm:w-auto px-10 py-7 text-lg rounded-2xl border-white/10 bg-white/5 backdrop-blur-md hover:bg-white/10 transition-all font-medium"
-                        >
-                            Explore Our Stack
-                        </Button>
-                    </m.div>
-
-                    {/* Trust Indicators (Subtle) */}
-                    <m.div
-                        initial={{ opacity: 0 }}
-                        animate={{ opacity: 1 }}
-                        transition={{ delay: 1, duration: 2 }}
-                        className="mt-20 pt-10 border-t border-white/5 w-full flex flex-col items-center"
-                    >
-                        <p className="text-[10px] font-bold text-slate-500 uppercase tracking-[0.4em] mb-8">
-                            Trusted in Enterprise Environments
+                        <h2 className="text-5xl sm:text-6xl lg:text-7xl font-bold tracking-tight text-transparent bg-clip-text bg-gradient-to-r from-blue-400 via-purple-500 to-orange-400 mb-4 drop-shadow-2xl">
+                            Start Transformation. <br className="hidden sm:block" /> Scale Infinitely.
+                        </h2>
+                        <p className="text-xl text-white/60 mb-10 font-light max-w-2xl mx-auto">
+                            Partner with Valiun to build the next generation of digital products.
                         </p>
-                        <div className="flex flex-wrap justify-center items-center gap-12 opacity-30 grayscale hover:opacity-50 transition-all duration-700">
-                            <div className="flex items-center gap-2 text-white font-bold tracking-tighter text-xl">
-                                <Zap className="w-6 h-6 fill-current text-blue-500" /> VALIUN CLOUD
-                            </div>
-                            <div className="flex items-center gap-2 text-white font-bold tracking-tighter text-xl">
-                                <Cloud className="w-6 h-6 fill-current text-purple-500" /> AZURE PARTNER
-                            </div>
-                            <div className="flex items-center gap-2 text-white font-bold tracking-tighter text-xl">
-                                <Bot className="w-6 h-6 fill-current text-blue-400" /> AI CORE
-                            </div>
-                        </div>
-                    </m.div>
-                </div>
-            </div>
 
-            {/* Bottom Gradient Fade */}
-            <div className="absolute bottom-0 left-0 w-full h-32 bg-gradient-to-t from-[#030303] to-transparent z-10" />
+                        <div className="flex flex-col sm:flex-row gap-6 justify-center items-center">
+                            <Button
+                                href="/contact"
+                                className="bg-gradient-to-r from-purple-600 to-blue-600 hover:from-purple-500 hover:to-blue-500 text-white rounded-full px-10 py-6 text-lg font-medium tracking-wide border-none shadow-[0_0_20px_rgba(147,51,234,0.3)] transition-all"
+                            >
+                                Start Transformation
+                            </Button>
+
+                            <Button
+                                variant="link"
+                                href="/services"
+                                className="text-white hover:text-white/80 text-lg group"
+                            >
+                                Explore Capabilities
+                                <ArrowRight className="w-4 h-4 ml-2 group-hover:translate-x-1 transition-transform" />
+                            </Button>
+                        </div>
+                    </div>
+                </m.div>
+
+            </div>
         </section>
     );
 }

@@ -5,11 +5,10 @@ import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { m, AnimatePresence } from "framer-motion";
 
-
 import { Menu, X, ChevronDown } from "lucide-react";
 import { Logo } from "@/components/ui/Logo";
 import { navigation } from "@/lib/navigation";
-import { cn } from "@/lib/utils"; // We need to create this util
+import { cn } from "@/lib/utils";
 
 export function Navbar() {
     const [isOpen, setIsOpen] = useState(false);
@@ -164,3 +163,4 @@ export function Navbar() {
         </nav>
     );
 }
+
