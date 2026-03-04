@@ -38,7 +38,7 @@ export function ServicesOverview() {
                 {services.slice(0, 6).map((service, index) => (
                     <Reveal key={service.label} delay={index * 0.1}>
                         <Link href={service.href} className="flex">
-                            <SpotlightCard className="h-[360px] w-full group p-8 hover:shadow-2xl transition-all duration-300 bg-black/40 backdrop-blur-sm border-white/10 hover:border-blue-500/30">
+                            <SpotlightCard className="min-h-[300px] md:h-[360px] w-full group p-8 hover:shadow-2xl transition-all duration-300 bg-black/40 backdrop-blur-sm border-white/10 hover:border-blue-500/30">
                                 <div className="flex flex-col h-full">
                                     <div className="mb-6 p-3 rounded-lg bg-white/5 w-fit border border-white/10 group-hover:scale-110 transition-transform duration-300">
                                         {icons[service.label] || <Code className="w-8 h-8 text-gray-500" />}

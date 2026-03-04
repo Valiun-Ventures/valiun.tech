@@ -101,7 +101,7 @@ export function Navbar() {
                             href="/contact"
                             className="px-6 py-2.5 bg-blue-600 hover:bg-blue-700 text-white text-sm font-semibold rounded-full transition-all"
                         >
-                            Get a Quote
+                            Contact Us
                         </Link>
                     </div>
 
@@ -120,28 +120,28 @@ export function Navbar() {
                 {isOpen && (
                     <m.div
                         initial={{ opacity: 0, height: 0 }}
-                        animate={{ opacity: 1, height: "auto" }}
+                        animate={{ opacity: 1, height: "100vh" }}
                         exit={{ opacity: 0, height: 0 }}
-                        className="lg:hidden bg-black border-t border-white/10"
+                        className="lg:hidden fixed inset-0 top-[70px] bg-black/95 backdrop-blur-xl border-t border-white/10 overflow-y-auto z-40"
                     >
-                        <div className="flex flex-col p-6 space-y-4">
+                        <div className="flex flex-col p-6 space-y-6 pb-20">
                             {navigation.map((item) => (
                                 <div key={item.label} className="flex flex-col">
                                     <Link
                                         href={item.href}
                                         onClick={() => setIsOpen(false)}
-                                        className="text-lg font-medium text-gray-200 hover:text-white mb-2"
+                                        className="text-2xl font-medium text-gray-200 hover:text-white mb-4"
                                     >
                                         {item.label}
                                     </Link>
                                     {item.children && (
-                                        <div className="pl-4 border-l border-white/10 flex flex-col space-y-2 mt-2">
+                                        <div className="pl-4 border-l-2 border-white/10 flex flex-col space-y-4 mt-2 mb-4">
                                             {item.children.map(child => (
                                                 <Link
                                                     key={child.label}
                                                     href={child.href}
                                                     onClick={() => setIsOpen(false)}
-                                                    className="text-sm text-gray-400 hover:text-white"
+                                                    className="text-lg text-gray-400 hover:text-white block py-1"
                                                 >
                                                     {child.label}
                                                 </Link>
@@ -153,9 +153,9 @@ export function Navbar() {
                             <Link
                                 href="/contact"
                                 onClick={() => setIsOpen(false)}
-                                className="mt-4 px-6 py-3 bg-blue-600 text-white text-center rounded-lg font-semibold"
+                                className="mt-8 px-6 py-4 bg-blue-600 text-white text-center rounded-xl font-bold text-lg shadow-lg shadow-blue-900/20"
                             >
-                                Get a Quote
+                                Contact Us
                             </Link>
                         </div>
                     </m.div>

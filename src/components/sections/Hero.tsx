@@ -76,21 +76,21 @@ export function Hero() {
                         <span className="text-sm font-medium text-blue-400 tracking-wide">PIONEERING THE FUTURE</span>
                     </div>
 
-                    <h1 className="text-5xl md:text-8xl lg:text-9xl font-bold tracking-tighter text-white mb-8">
+                    <h1 className="text-4xl md:text-8xl lg:text-9xl font-bold tracking-tighter text-white mb-6 md:mb-8">
                         Future of Tech <br className="hidden sm:inline" />
                         is <span className="text-transparent bg-clip-text bg-gradient-to-r from-blue-400 via-purple-500 to-blue-600 animate-gradient-x">Valiun.</span>
                     </h1>
 
-                    <p className="text-xl md:text-2xl text-gray-400 max-w-3xl mx-auto mb-12 leading-relaxed">
+                    <p className="text-lg md:text-2xl text-gray-400 max-w-3xl mx-auto mb-8 md:mb-12 leading-relaxed px-4">
                         We empower enterprises with <span className="text-gray-200">Agentic AI</span>, <span className="text-gray-200">Scalable Cloud Architectures</span>, and premium digital experiences.
                     </p>
 
-                    <div className="flex flex-col sm:flex-row gap-6 justify-center items-center">
-                        <Button size="lg" href="/contact" className="h-14 px-10 text-lg rounded-full shadow-[0_0_30px_rgba(37,99,235,0.4)] hover:shadow-[0_0_50px_rgba(37,99,235,0.6)] transition-shadow">
+                    <div className="flex flex-col sm:flex-row gap-4 sm:gap-6 justify-center items-center w-full sm:w-auto px-4 sm:px-0">
+                        <Button size="lg" href="/contact" className="w-full sm:w-auto h-12 sm:h-14 px-8 sm:px-10 text-base sm:text-lg rounded-full shadow-[0_0_30px_rgba(37,99,235,0.4)] hover:shadow-[0_0_50px_rgba(37,99,235,0.6)] transition-shadow">
                             Start Transformation
-                            <ArrowRight className="w-5 h-5 ml-2" />
+                            <ArrowRight className="w-4 h-4 sm:w-5 sm:h-5 ml-2" />
                         </Button>
-                        <Button size="lg" variant="outline" href="/services" className="h-14 px-10 text-lg rounded-full bg-black/20 backdrop-blur-sm border-white/10 hover:bg-white/5">
+                        <Button size="lg" variant="outline" href="/services" className="w-full sm:w-auto h-12 sm:h-14 px-8 sm:px-10 text-base sm:text-lg rounded-full bg-black/20 backdrop-blur-sm border-white/10 hover:bg-white/5">
                             Explore Capabilities
                         </Button>
                     </div>

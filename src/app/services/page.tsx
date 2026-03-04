@@ -1,7 +1,8 @@
 import { Section } from "@/components/ui/Section";
 import { Reveal } from "@/components/ui/Reveal";
 import Link from "next/link";
-import { Bot, Code, Smartphone, Cloud, Database, Palette, Shield, Terminal, ArrowRight, CheckCircle2 } from "lucide-react";
+import { Bot, Code, Smartphone, Cloud, Database, Palette, Shield, Terminal, ArrowRight } from "lucide-react";
+import { CallToAction } from "@/components/sections/CallToAction";
 
 export default function ServicesPage() {
     return (
@@ -158,25 +159,7 @@ export default function ServicesPage() {
             </Section>
 
             {/* Quality Assurance Section */}
-            <Section className="bg-blue-500/5 border border-blue-500/20 rounded-2xl p-10 flex flex-col md:flex-row items-center justify-between gap-8 mb-24 backdrop-blur-sm">
-                <div className="flex-1">
-                    <h2 className="text-2xl font-bold mb-4 flex items-center gap-3">
-                        <CheckCircle2 className="text-blue-500 w-8 h-8" />
-                        Flawless Performance, Guaranteed.
-                    </h2>
-                    <p className="text-gray-400">
-                        Our Quality Assurance team ensures every line of code meets the highest enterprise standards. From automated regression testing to manual penetration testing, we leave no stone unturned.
-                    </p>
-                </div>
-                <div className="flex gap-4">
-                    <Link href="/case-studies" className="bg-white/5 border border-white/10 hover:bg-white/10 px-6 py-3 rounded-lg text-sm font-bold transition-all">
-                        View Case Studies
-                    </Link>
-                    <Link href="/contact" className="bg-blue-600 hover:bg-blue-700 text-white px-6 py-3 rounded-lg text-sm font-bold shadow-lg shadow-blue-500/20 transition-all">
-                        Get Started
-                    </Link>
-                </div>
-            </Section>
+            <CallToAction />
         </div>
     );
 }

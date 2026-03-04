@@ -1,46 +1,213 @@
 import { Section } from "@/components/ui/Section";
-import { navigation } from "@/lib/navigation";
-import { Check, Code2, Server, Smartphone, Cloud, Database } from "lucide-react";
+import { Reveal } from "@/components/ui/Reveal";
+import { SpotlightCard } from "@/components/ui/SpotlightCard";
+import { Button } from "@/components/ui/Button";
+import {
+    Cloud,
+    Code2,
+    Layout,
+    Cpu,
+    BarChart,
+    Layers,
+    Terminal,
+    Dna,
+    Search
+} from "lucide-react";
+import { CallToAction } from "@/components/sections/CallToAction";
+
+const techStack = {
+    cloud: ["AWS", "Azure", "Google Cloud", "DigitalOcean", "Cloudflare", "Kubernetes"],
+    languages: ["Python", "TypeScript", "Go", "Java", "C++", "Rust"],
+    frameworks: ["React", "Next.js", "Django", "Spring Boot", "FastAPI", "NestJS"]
+};
+
+const capabilities = [
+    {
+        icon: <Cpu className="w-8 h-8 text-blue-400" />,
+        title: "Agentic AI Orchestration",
+        description: "Building autonomous systems that utilize LLMs and custom tools to perform complex, multi-step business operations without manual intervention."
+    },
+    {
+        icon: <Cloud className="w-8 h-8 text-purple-400" />,
+        title: "Cloud-Native Architecture",
+        description: "Designing resilient, auto-scaling infrastructures optimized for high availability, security, and global performance across major cloud providers."
+    },
+    {
+        icon: <Layout className="w-8 h-8 text-blue-500" />,
+        title: "Advanced UI/UX Systems",
+        description: "Implementing sophisticated design systems and reactive interfaces that prioritize performance, accessibility, and premium aesthetic experience."
+    },
+    {
+        icon: <BarChart className="w-8 h-8 text-purple-500" />,
+        title: "Data Intelligence Hubs",
+        description: "Constructing robust data pipelines and real-time analytical engines that translate vast raw data into actionable strategic insights."
+    }
+];
 
 export default function TechnologiesPage() {
-    // Manually defining tech categories for visual layout
-    const categories = [
-        { name: "Frontend", icon: <Code2 className="w-8 h-8 text-blue-500" />, items: ["React.js", "Angular", "Vue.js", "Next.js", "Tailwind CSS"] },
-        { name: "Backend", icon: <Server className="w-8 h-8 text-purple-500" />, items: ["Node.js", "Python", "Java", "Go", "NestJS"] },
-        { name: "Mobile", icon: <Smartphone className="w-8 h-8 text-pink-500" />, items: ["Flutter", "React Native", "Swift", "Kotlin"] },
-        { name: "Cloud", icon: <Cloud className="w-8 h-8 text-cyan-500" />, items: ["AWS", "Azure", "Google Cloud", "Docker", "Kubernetes"] },
-        { name: "Data & AI", icon: <Database className="w-8 h-8 text-emerald-500" />, items: ["Power BI", "TensorFlow", "PyTorch", "OpenAI API", "Hadoop"] }
-    ];
-
     return (
-        <div className="pt-10">
-            <Section className="text-center">
-                <h1 className="text-5xl md:text-6xl font-bold mb-6">Technological Excellence</h1>
-                <p className="text-xl text-gray-400 max-w-3xl mx-auto">
-                    We harness the power of modern technology stacks to build robust, scalable, and future-proof solutions.
-                </p>
+        <div className="pb-24">
+            {/* Hero Section */}
+            <Section className="!mb-0 !pb-20 text-center max-w-4xl mx-auto pt-24">
+                <Reveal width="fit-content" className="mx-auto">
+                    <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-blue-500/10 border border-blue-500/20 text-blue-400 text-xs font-bold uppercase tracking-wider mb-6">
+                        <Terminal className="w-4 h-4" />
+                        OUR TECH STACK
+                    </div>
+                </Reveal>
+                <Reveal width="100%">
+                    <h1 className="text-5xl md:text-7xl font-black tracking-tight mb-8 leading-tight">
+                        Powering Innovation with <span className="text-transparent bg-clip-text bg-gradient-to-r from-blue-400 to-purple-500">Modern Stacks</span>.
+                    </h1>
+                </Reveal>
+                <Reveal width="100%" delay={0.2}>
+                    <p className="text-gray-400 text-lg md:text-xl leading-relaxed mb-10 max-w-3xl mx-auto font-light">
+                        We leverage the best of breed technologies to build software that is
+                        robust, secure, and ready for tomorrow&apos;s challenges.
+                    </p>
+                </Reveal>
             </Section>
 
-            <Section>
-                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-                    {categories.map((cat) => (
-                        <div key={cat.name} className="p-8 rounded-3xl bg-white/5 border border-white/10 hover:border-blue-500/30 transition-colors">
-                            <div className="flex items-center gap-4 mb-8 border-b border-white/5 pb-4">
-                                {cat.icon}
-                                <h2 className="text-2xl font-bold">{cat.name}</h2>
+            {/* Technical Ecosystem */}
+            <Section className="py-20 px-4 md:px-20 lg:px-40 bg-white/[0.01] border-y border-white/5">
+                <div className="text-center mb-16">
+                    <Reveal className="mx-auto">
+                        <h2 className="text-4xl md:text-5xl font-bold mb-6">Technical <span className="text-transparent bg-clip-text bg-gradient-to-r from-blue-400 to-purple-600">Ecosystem</span></h2>
+                        <p className="text-slate-400 max-w-2xl mx-auto font-light leading-relaxed">
+                            A curated selection of world-class technologies that form the backbone of our solutions.
+                        </p>
+                    </Reveal>
+                </div>
+
+                <div className="grid grid-cols-1 md:grid-cols-3 gap-12">
+                    <Reveal y={20}>
+                        <div className="space-y-6">
+                            <div className="flex items-center gap-3 mb-8">
+                                <Cloud className="w-6 h-6 text-blue-500" />
+                                <h3 className="text-xl font-bold text-white uppercase tracking-widest text-sm text-blue-400">Cloud & Devops</h3>
                             </div>
-                            <div className="space-y-3">
-                                {cat.items.map(item => (
-                                    <div key={item} className="flex items-center text-gray-300">
-                                        <div className="w-2 h-2 rounded-full bg-blue-500 mr-3" />
+                            <div className="flex flex-wrap gap-3">
+                                {techStack.cloud.map((item, i) => (
+                                    <span key={i} className="px-5 py-3 rounded-2xl bg-white/[0.03] border border-white/10 text-slate-300 text-sm font-medium hover:border-blue-500/30 transition-colors">
                                         {item}
-                                    </div>
+                                    </span>
                                 ))}
                             </div>
                         </div>
+                    </Reveal>
+                    <Reveal y={20} delay={0.1}>
+                        <div className="space-y-6">
+                            <div className="flex items-center gap-3 mb-8">
+                                <Code2 className="w-6 h-6 text-purple-500" />
+                                <h3 className="text-xl font-bold text-white uppercase tracking-widest text-sm text-purple-400">Languages</h3>
+                            </div>
+                            <div className="flex flex-wrap gap-3">
+                                {techStack.languages.map((item, i) => (
+                                    <span key={i} className="px-5 py-3 rounded-2xl bg-white/[0.03] border border-white/10 text-slate-300 text-sm font-medium hover:border-purple-500/30 transition-colors">
+                                        {item}
+                                    </span>
+                                ))}
+                            </div>
+                        </div>
+                    </Reveal>
+                    <Reveal y={20} delay={0.2}>
+                        <div className="space-y-6">
+                            <div className="flex items-center gap-3 mb-8">
+                                <Layout className="w-6 h-6 text-blue-400" />
+                                <h3 className="text-xl font-bold text-white uppercase tracking-widest text-sm text-blue-300">Frameworks</h3>
+                            </div>
+                            <div className="flex flex-wrap gap-3">
+                                {techStack.frameworks.map((item, i) => (
+                                    <span key={i} className="px-5 py-3 rounded-2xl bg-white/[0.03] border border-white/10 text-slate-300 text-sm font-medium hover:border-blue-400/30 transition-colors">
+                                        {item}
+                                    </span>
+                                ))}
+                            </div>
+                        </div>
+                    </Reveal>
+                </div>
+            </Section>
+
+            {/* Core Capabilities */}
+            <Section className="py-20 px-4 md:px-20 lg:px-40">
+                <div className="text-center mb-16">
+                    <Reveal className="mx-auto">
+                        <h2 className="text-4xl md:text-5xl font-bold mb-6">Core <span className="text-transparent bg-clip-text bg-gradient-to-r from-blue-400 to-purple-600">Capabilities</span></h2>
+                        <p className="text-slate-400 max-w-2xl mx-auto font-light leading-relaxed">
+                            Deep technical domains where our engineers excel and deliver disproportionate value.
+                        </p>
+                    </Reveal>
+                </div>
+
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                    {capabilities.map((cap, i) => (
+                        <Reveal key={i} delay={i * 0.1} y={20}>
+                            <div className="p-10 rounded-3xl bg-white/[0.02] border border-white/5 hover:border-blue-500/30 transition-all duration-300 h-full group">
+                                <div className="mb-8 group-hover:scale-110 transition-transform duration-500">
+                                    {cap.icon}
+                                </div>
+                                <h3 className="text-2xl font-bold text-white mb-4 tracking-tight">{cap.title}</h3>
+                                <p className="text-slate-400 leading-relaxed font-light">{cap.description}</p>
+                            </div>
+                        </Reveal>
                     ))}
                 </div>
             </Section>
+
+            {/* R&D Section */}
+            <Section className="py-20 px-4 md:px-20 lg:px-40 bg-gradient-to-b from-transparent to-blue-900/10 border-t border-white/5">
+                <div className="grid lg:grid-cols-2 gap-16 items-center">
+                    <div>
+                        <Reveal>
+                            <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-blue-500/10 border border-blue-500/20 text-blue-400 text-[10px] font-bold uppercase tracking-widest mb-6">
+                                <Dna className="w-3 h-3" />
+                                CONTINUOUS INNOVATION
+                            </div>
+                        </Reveal>
+                        <Reveal delay={0.2}>
+                            <h2 className="text-4xl md:text-5xl font-bold mb-8 leading-tight">
+                                Staying ahead of the <span className="text-blue-500">Curve</span>.
+                            </h2>
+                        </Reveal>
+                        <Reveal delay={0.3}>
+                            <p className="text-slate-400 text-lg leading-relaxed font-light mb-10">
+                                We dedicate 20% of our engineering cycles to R&D. Our lab is currently
+                                developing autonomous cross-cloud migration agents and zero-knowledge
+                                proof systems for enterprise data privacy.
+                            </p>
+                        </Reveal>
+                        <Reveal delay={0.4}>
+                            <div className="space-y-4">
+                                <div className="flex items-center gap-4 text-white font-medium">
+                                    <Layers className="size-5 text-blue-500" />
+                                    Next-Gen LLM Fine-tuning
+                                </div>
+                                <div className="flex items-center gap-4 text-white font-medium">
+                                    <Search className="size-5 text-blue-500" />
+                                    Distributed Compute Optimization
+                                </div>
+                            </div>
+                        </Reveal>
+                    </div>
+
+                    <Reveal x={50}>
+                        <div className="relative aspect-square rounded-[3rem] bg-white/[0.02] border border-white/10 flex items-center justify-center overflow-hidden">
+                            <div className="absolute inset-0 bg-gradient-to-tr from-blue-500/10 to-transparent" />
+                            <Cpu className="size-32 text-blue-500/30 animate-pulse" />
+                            <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 size-64 bg-blue-500/10 blur-[80px] rounded-full" />
+                        </div>
+                    </Reveal>
+                </div>
+            </Section>
+
+            {/* Final CTA Section */}
+            <CallToAction
+                title="Ready to leverage world-class technology?"
+                description="Whether you need AI orchestration, cloud architecture, or advanced UI/UX, we have the specialized talent to deliver."
+                primaryButtonText="Consult an Architect"
+                secondaryButtonText="View Services"
+                secondaryButtonHref="/services"
+            />
         </div>
     );
 }
