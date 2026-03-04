@@ -11,7 +11,7 @@ export const metadata: Metadata = {
   title: "Valiun Tech | Enterprise Agentic AI & Cloud Architecture",
   description: "Valiun Tech specializes in Agentic AI solutions, scalable cloud architectures (AWS/Azure), and premium digital transformation for enterprises.",
   icons: {
-    icon: "https://ik.imagekit.io/q0gorn2pwv/VALIUN%20-%20New%20Final%20Favicon.png",
+    icon: "/favicon.ico",
   },
 };
 
