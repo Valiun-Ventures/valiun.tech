@@ -53,7 +53,8 @@ export const InfiniteMovingCards = ({
         }
     }
 
-    function addAnimation() {
+    useEffect(() => {
+        let isMounted = true;
         if (containerRef.current && scrollerRef.current) {
             const scrollerContent = Array.from(scrollerRef.current.children);
 
@@ -66,12 +67,13 @@ export const InfiniteMovingCards = ({
 
             getDirection();
             getSpeed();
-            requestAnimationFrame(() => setStart(true));
+            requestAnimationFrame(() => {
+                if (isMounted) setStart(true);
+            });
         }
-    }
-
-    useEffect(() => {
-        addAnimation();
+        return () => {
+            isMounted = false;
+        };
     }, []);
 
     return (

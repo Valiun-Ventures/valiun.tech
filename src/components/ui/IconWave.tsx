@@ -21,12 +21,19 @@ export function IconWave() {
     const allIcons = useMemo(() => [...icons, ...icons, ...icons], []);
 
     useEffect(() => {
+        let isMounted = true;
         const enterAnimation = async () => {
+            if (!scope.current || !isMounted) return;
+
             // 1. Start VERY fast (simulated by a quick translation)
             await animate(scope.current, { x: "-50%" }, { duration: 10, ease: "linear" });
 
+            if (!scope.current || !isMounted) return;
+
             // 2. Reset instantly to 0 (seamless loop trick)
             await animate(scope.current, { x: "0%" }, { duration: 0 });
+
+            if (!scope.current || !isMounted) return;
 
             // 3. Continue slowly forever
             animate(scope.current, { x: "-50%" }, {
@@ -36,6 +43,10 @@ export function IconWave() {
             });
         };
         enterAnimation();
+
+        return () => {
+            isMounted = false;
+        };
     }, [animate, scope]);
 
     return (

@@ -28,11 +28,12 @@ function Counter({ value, suffix }: { value: number, suffix: string }) {
     }, [isInView, motionValue, value]);
 
     useEffect(() => {
-        springValue.on("change", (latest) => {
+        const unsubscribe = springValue.on("change", (latest) => {
             if (ref.current) {
                 ref.current.textContent = Math.floor(latest).toString() + suffix;
             }
         });
+        return () => unsubscribe();
     }, [springValue, suffix]);
 
     return <span ref={ref} />;

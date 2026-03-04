@@ -4,6 +4,9 @@ import "./globals.css";
 import { Navbar } from "@/components/layout/Navbar";
 import { Footer } from "@/components/layout/Footer";
 import { SmoothScroll } from "@/components/ui/SmoothScroll";
+import { AnimationProvider } from "@/components/ui/AnimationProvider";
+import { ThemeProvider } from "@/components/ui/ThemeProvider";
+import Script from "next/script";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -14,10 +17,6 @@ export const metadata: Metadata = {
     icon: "/favicon.ico",
   },
 };
-
-import { AnimationProvider } from "@/components/ui/AnimationProvider";
-import { ThemeProvider } from "@/components/ui/ThemeProvider";
-import Script from "next/script";
 
 export default function RootLayout({
   children,
