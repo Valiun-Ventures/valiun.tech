@@ -33,6 +33,20 @@ export function Hero() {
     const rotateX = useTransform(smoothY, [0, 1000], [5, -5]);
     const rotateY = useTransform(smoothX, [0, 1500], [-5, 5]);
 
+    const spotlightBackground = useMotionTemplate`
+        radial-gradient(
+            900px circle at ${mouseX}px ${mouseY}px,
+            rgba(59, 130, 246, 0.12),
+            transparent 80%
+        )
+    `;
+
+    const card1X = useTransform(smoothX, [0, 1500], [20, -20]);
+    const card1Y = useTransform(smoothY, [0, 1000], [20, -20]);
+    const card2X = useTransform(smoothX, [0, 1500], [-30, 30]);
+    const card2Y = useTransform(smoothY, [0, 1000], [-30, 30]);
+    const badgeY = useTransform(smoothY, [0, 1000], [40, -40]);
+
     if (!isMounted) return <div className="min-h-screen bg-black" />;
 
     return (
@@ -46,13 +60,7 @@ export function Hero() {
             <m.div
                 className="pointer-events-none absolute -inset-px opacity-100 transition duration-300 z-0"
                 style={{
-                    background: useMotionTemplate`
-                    radial-gradient(
-                        900px circle at ${mouseX}px ${mouseY}px,
-                        rgba(59, 130, 246, 0.12),
-                        transparent 80%
-                    )
-                `,
+                    background: spotlightBackground,
                 }}
             />
 
@@ -70,7 +78,7 @@ export function Hero() {
             <div className="hidden lg:block absolute inset-0 pointer-events-none z-10">
                 {/* Top Left Card */}
                 <m.div
-                    style={{ x: useTransform(smoothX, [0, 1500], [20, -20]), y: useTransform(smoothY, [0, 1000], [20, -20]), rotateX, rotateY }}
+                    style={{ x: card1X, y: card1Y, rotateX, rotateY }}
                     className="absolute top-[20%] left-[10%] p-4 rounded-2xl bg-white/[0.03] border border-white/10 backdrop-blur-md"
                 >
                     <div className="flex items-center gap-3">
@@ -83,7 +91,7 @@ export function Hero() {
 
                 {/* Bottom Right Card */}
                 <m.div
-                    style={{ x: useTransform(smoothX, [0, 1500], [-30, 30]), y: useTransform(smoothY, [0, 1000], [-30, 30]), rotateX, rotateY }}
+                    style={{ x: card2X, y: card2Y, rotateX, rotateY }}
                     className="absolute bottom-[25%] right-[12%] p-5 rounded-2xl bg-white/[0.03] border border-white/10 backdrop-blur-md"
                 >
                     <div className="flex items-center gap-3">
@@ -99,7 +107,7 @@ export function Hero() {
 
                 {/* Center Top Badge */}
                 <m.div
-                    style={{ y: useTransform(smoothY, [0, 1000], [40, -40]) }}
+                    style={{ y: badgeY }}
                     className="absolute top-[15%] right-[25%] p-3 rounded-xl bg-white/[0.01] border border-white/5 backdrop-blur-sm"
                 >
                     <Binary className="w-4 h-4 text-blue-500/40" />
