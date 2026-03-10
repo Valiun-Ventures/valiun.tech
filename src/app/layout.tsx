@@ -6,7 +6,7 @@ import { Footer } from "@/components/layout/Footer";
 import { SmoothScroll } from "@/components/ui/SmoothScroll";
 import { AnimationProvider } from "@/components/ui/AnimationProvider";
 import { ThemeProvider } from "@/components/ui/ThemeProvider";
-import Script from "next/script";
+import { CookieConsent } from "@/components/ui/CookieConsent";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -30,30 +30,6 @@ export default function RootLayout({
   return (
     <html lang="en" className="dark scroll-smooth" suppressHydrationWarning>
       <head>
-        {/* Google Tag (gtag.js) */}
-        <Script
-          src="https://www.googletagmanager.com/gtag/js?id=G-LLLCNMRSHD"
-          strategy="beforeInteractive"
-        />
-        <Script id="google-tag" strategy="beforeInteractive">
-          {`
-            window.dataLayer = window.dataLayer || [];
-            function gtag(){dataLayer.push(arguments);}
-            gtag('js', new Date());
-
-            gtag('config', 'G-LLLCNMRSHD');
-          `}
-        </Script>
-        {/* Microsoft Clarity */}
-        <Script id="microsoft-clarity" strategy="afterInteractive">
-          {`
-            (function(c,l,a,r,i,t,y){
-                c[a]=c[a]||function(){(c[a].q=c[a].q||[]).push(arguments)};
-                t=l.createElement(r);t.async=1;t.src="https://www.clarity.ms/tag/"+i;
-                y=l.getElementsByTagName(r)[0];y.parentNode.insertBefore(t,y);
-            })(window, document, "clarity", "script", "vk8ziyettl");
-          `}
-        </Script>
       </head>
       <body className={`${inter.className} bg-[#030303] text-white antialiased overflow-x-hidden selection:bg-blue-500/30`}>
         <ThemeProvider attribute="class" defaultTheme="dark" enableSystem={false}>
@@ -67,6 +43,9 @@ export default function RootLayout({
             </SmoothScroll>
           </AnimationProvider>
         </ThemeProvider>
+
+        {/* Global Cookie Consent & Trackers */}
+        <CookieConsent />
       </body>
     </html>
   );
