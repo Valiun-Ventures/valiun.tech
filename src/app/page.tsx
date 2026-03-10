@@ -5,7 +5,7 @@ export const metadata: Metadata = {
   title: "Home",
 };
 import { ServicesOverview } from "@/components/sections/ServicesOverview";
-import { TestimonialsSection } from "@/components/sections/TestimonialsSection";
+import { ClientSuccessStories } from "@/components/sections/client-success-stories";
 import { FAQSection } from "@/components/sections/FAQSection";
 import { CallToAction } from "@/components/sections/CallToAction";
 import { VelocityScroll } from "@/components/ui/VelocityScroll";
@@ -36,7 +36,7 @@ export default function Home() {
       <FeaturedProjects />
       <EngagementModels />
       <BlogsPreview />
-      <TestimonialsSection />
+      <ClientSuccessStories />
       <FAQSection />
       <CallToAction />
     </div>

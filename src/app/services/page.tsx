@@ -6,107 +6,20 @@ import Link from "next/link";
 import { m } from "framer-motion";
 import { Bot, Code, Smartphone, Cloud, Database, Palette, Shield, Terminal, ArrowRight } from "lucide-react";
 import { CallToAction } from "@/components/sections/CallToAction";
+import { OverviewHero } from "@/components/ui/OverviewHero";
 
 export default function ServicesPage() {
     return (
         <div className="">
-            {/* Hero Section - The Intelligence Hub */}
-            <Section className="relative min-h-[85vh] flex items-center justify-center overflow-hidden !py-0 !mb-0">
-                {/* Background Ambient Glows */}
-                <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[800px] h-[800px] bg-blue-600/10 rounded-full blur-[120px] pointer-events-none" />
-                <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[600px] bg-purple-600/5 rounded-full blur-[100px] pointer-events-none delay-700" />
+            {/* Hero Section */}
+            <OverviewHero
+                badge="Intelligence at Scale"
+                title="Elite Capabilities."
+                description="We architect high-performance digital ecosystems. From Agentic AI to mission-critical cloud infrastructure, we build the foundations of market dominance."
+                gradientFrom="#3ca2fa"
+                gradientTo="#bc13fe"
+            />
 
-                <div className="container relative z-10 grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
-                    {/* Left: Content */}
-                    <div className="text-left space-y-8">
-                        <Reveal>
-                            <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-white/5 border border-white/10 backdrop-blur-md text-[#3ca2fa] text-xs font-mono uppercase tracking-[0.2em]">
-                                <span className="relative flex h-2 w-2">
-                                    <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-[#3ca2fa] opacity-75"></span>
-                                    <span className="relative inline-flex rounded-full h-2 w-2 bg-[#3ca2fa]"></span>
-                                </span>
-                                Intelligence at Scale
-                            </div>
-                        </Reveal>
-
-                        <div className="space-y-4">
-                            <Reveal width="100%">
-                                <h1 className="text-6xl md:text-7xl lg:text-8xl font-black tracking-tight leading-[0.9] text-white">
-                                    Elite <br />
-                                    <span className="text-transparent bg-clip-text bg-gradient-to-r from-[#3ca2fa] via-purple-400 to-[#3ca2fa] bg-[length:200%_auto] animate-gradient">Capabilities.</span>
-                                </h1>
-                            </Reveal>
-                            <Reveal width="100%" delay={0.2}>
-                                <p className="text-gray-400 text-lg md:text-xl leading-relaxed max-w-xl font-medium">
-                                    We architect high-performance digital ecosystems. From Agentic AI to mission-critical cloud infrastructure, we build the foundations of market dominance.
-                                </p>
-                            </Reveal>
-                        </div>
-
-                        <Reveal delay={0.4}>
-                            <div className="flex flex-wrap gap-4">
-                                <Link
-                                    href="/contact"
-                                    className="px-8 py-4 bg-white text-black font-bold rounded-full hover:bg-[#3ca2fa] hover:text-white transition-all duration-300 transform hover:scale-105 active:scale-95 shadow-[0_0_20px_rgba(255,255,255,0.1)]"
-                                >
-                                    Start a Project
-                                </Link>
-                                <div className="flex items-center space-x-4 px-6 py-4 rounded-full border border-white/10 bg-white/5 backdrop-blur-sm">
-                                    <div className="flex -space-x-2">
-                                        {[1, 2, 3].map((i) => (
-                                            <div key={i} className="size-8 rounded-full border-2 border-[#0A0A0B] bg-gray-800" />
-                                        ))}
-                                    </div>
-                                    <span className="text-xs text-gray-400 font-medium">Trusted by Fortune 500 elite</span>
-                                </div>
-                            </div>
-                        </Reveal>
-                    </div>
-
-                    {/* Right: Immersive Core Asset */}
-                    <Reveal delay={0.3} className="relative aspect-square flex items-center justify-center">
-                        <m.div
-                            initial={{ opacity: 0, scale: 0.8, rotate: -10 }}
-                            animate={{ opacity: 1, scale: 1, rotate: 0 }}
-                            transition={{ duration: 1.2, ease: "easeOut" }}
-                            className="relative w-full max-w-[500px]"
-                        >
-                            {/* The 3D Core Image */}
-                            <img
-                                src="https://antigravity-artifacts.s3.amazonaws.com/fdebc763-0b5f-48c9-a182-35724c558391/services_hero_core_1773179463305.png"
-                                alt="Intelligence Core"
-                                className="w-full h-auto object-contain z-10 relative drop-shadow-[0_0_50px_rgba(60,162,250,0.3)] animate-float"
-                            />
-
-                            {/* Decorative Floating Elements */}
-                            <m.div
-                                animate={{ y: [0, -20, 0], opacity: [0.4, 0.8, 0.4] }}
-                                transition={{ duration: 4, repeat: Infinity, ease: "easeInOut" }}
-                                className="absolute -top-10 -right-10 px-4 py-2 bg-white/5 border border-white/10 rounded-xl backdrop-blur-xl z-20"
-                            >
-                                <div className="text-[10px] uppercase font-mono text-blue-400 mb-1">AI Efficiency</div>
-                                <div className="text-xl font-bold">+94%</div>
-                            </m.div>
-
-                            <m.div
-                                animate={{ y: [0, 20, 0], opacity: [0.3, 0.6, 0.3] }}
-                                transition={{ duration: 5, repeat: Infinity, ease: "easeInOut", delay: 1 }}
-                                className="absolute -bottom-5 -left-10 px-4 py-2 bg-white/5 border border-white/10 rounded-xl backdrop-blur-xl z-20"
-                            >
-                                <div className="text-[10px] uppercase font-mono text-purple-400 mb-1">Latency</div>
-                                <div className="text-xl font-bold text-white">12ms</div>
-                            </m.div>
-
-                            {/* Orbiting Ring */}
-                            <div className="absolute inset-0 border-[1px] border-white/5 rounded-full scale-125 animate-[spin_20s_linear_infinite]" />
-                            <div className="absolute inset-0 border-[1px] border-white/5 rounded-full scale-[1.35] animate-[spin_30s_linear_infinite_reverse]" />
-                        </m.div>
-                    </Reveal>
-                </div>
-
-                {/* Grid Background Effect */}
-                <div className="absolute inset-0 bg-[linear-gradient(to_right,#80808012_1px,transparent_1px),linear-gradient(to_bottom,#80808012_1px,transparent_1px)] bg-[size:40px_40px] [mask-image:radial-gradient(ellipse_60%_50%_at_50%_50%,#000_70%,transparent_100%)] pointer-events-none" />
-            </Section>
 
             {/* Bento Services Grid */}
             <Section className="!pt-8 !mt-0 mb-24">

@@ -8,6 +8,7 @@ import {
     Globe,
 } from "lucide-react";
 import { FooterBackgroundGradient, TextHoverEffect } from "@/components/ui/hover-footer";
+import { Logo } from "@/components/ui/Logo";
 import Link from "next/link";
 import { navigation } from "@/lib/navigation";
 
@@ -52,12 +53,7 @@ export function Footer() {
                 <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-12 md:gap-8 lg:gap-12 pb-12">
                     {/* Brand section */}
                     <div className="flex flex-col space-y-4 lg:col-span-2 text-center md:text-left">
-                        <div className="flex items-center justify-center md:justify-start space-x-2">
-                            <span className="text-[#3ca2fa] text-3xl font-extrabold">
-                                ✦
-                            </span>
-                            <span className="text-white text-3xl font-bold font-[helvetica]">Valiun</span>
-                        </div>
+                        <Logo className="justify-center md:justify-start" />
                         <p className="text-gray-400 text-sm leading-relaxed max-w-xs mx-auto md:mx-0">
                             Engineering digital dominance through Agentic AI, modern cloud architectures, and elite engineering solutions for the intelligent future.
                         </p>

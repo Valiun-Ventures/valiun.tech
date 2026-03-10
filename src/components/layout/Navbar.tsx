@@ -32,6 +32,7 @@ export function Navbar() {
         {
             id: 1,
             label: "Services",
+            href: "/services",
             subMenus: [
                 {
                     title: "Intelligence & Data",
@@ -109,6 +110,7 @@ export function Navbar() {
         {
             id: 2,
             label: "Industries",
+            href: "/industries",
             subMenus: [
                 {
                     title: "FinTech & Healthcare",
@@ -172,6 +174,7 @@ export function Navbar() {
         {
             id: 3,
             label: "Solutions",
+            href: "/solutions",
             subMenus: [
                 {
                     title: "Enterprise",
@@ -219,6 +222,7 @@ export function Navbar() {
         {
             id: 7,
             label: "Company",
+            href: "/company/about",
             subMenus: [
                 {
                     title: "About Valiun",
@@ -340,7 +344,13 @@ export function Navbar() {
                                     <div key={item.label} className="space-y-4">
                                         {item.subMenus ? (
                                             <>
-                                                <span className="text-2xl font-bold text-white/50 block tracking-tight">{item.label}</span>
+                                                <Link
+                                                    href={item.href || "#"}
+                                                    onClick={() => setIsOpen(false)}
+                                                    className="text-2xl font-bold text-white/50 hover:text-white block tracking-tight transition-colors"
+                                                >
+                                                    {item.label}
+                                                </Link>
                                                 <div className="grid grid-cols-1 gap-6 pl-4 border-l border-white/10">
                                                     {item.subMenus.map(sub => (
                                                         <div key={sub.title} className="space-y-3">
