@@ -50,7 +50,8 @@ const MegaMenu = React.forwardRef<HTMLUListElement, MegaMenuProps>(
                         onMouseLeave={() => handleHover(null)}
                     >
                         {navItem.subMenus ? (
-                            <button
+                            <Link
+                                href={navItem.href || "#"}
                                 className="relative flex cursor-pointer items-center justify-center gap-1 py-1.5 px-4 text-sm text-white/50 transition-colors duration-300 hover:text-white group z-10 whitespace-nowrap"
                                 onMouseEnter={() => setIsHover(navItem.id)}
                                 onMouseLeave={() => setIsHover(null)}
@@ -71,7 +72,7 @@ const MegaMenu = React.forwardRef<HTMLUListElement, MegaMenuProps>(
                                         }}
                                     />
                                 )}
-                            </button>
+                            </Link>
                         ) : (
                             <Link
                                 href={navItem.href || "#"}
@@ -95,9 +96,11 @@ const MegaMenu = React.forwardRef<HTMLUListElement, MegaMenuProps>(
                         <AnimatePresence>
                             {openMenu === navItem.label && navItem.subMenus && (
                                 <div className={cn(
-                                    "absolute top-full w-auto pt-4 z-50",
+                                    "absolute top-full w-auto pt-6 z-50",
                                     index > items.length - 2 ? "right-0" : "left-0"
                                 )}>
+                                    {/* Invisible bridge to maintain hover state */}
+                                    <div className="absolute top-0 left-0 w-full h-6 bg-transparent" />
                                     <m.div
                                         className="w-max border border-white/10 bg-[#0A0A0A] p-6 shadow-2xl backdrop-blur-xl"
                                         style={{
