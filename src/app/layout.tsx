@@ -41,11 +41,10 @@ export default function RootLayout({
               </main>
               <Footer />
             </SmoothScroll>
+            {/* Global Cookie Consent & Trackers */}
+            <CookieConsent />
           </AnimationProvider>
         </ThemeProvider>
-
-        {/* Global Cookie Consent & Trackers */}
-        <CookieConsent />
       </body>
     </html>
   );
