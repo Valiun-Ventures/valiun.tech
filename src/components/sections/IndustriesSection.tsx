@@ -101,9 +101,10 @@ export function IndustriesSection() {
 
             <div className="relative z-20 text-center mb-12 pointer-events-none max-w-7xl mx-auto px-6">
                 <Reveal width="100%">
-                    <h2 className="text-3xl md:text-5xl font-bold mb-6">
-                        <span className="text-transparent bg-clip-text bg-gradient-to-r from-white to-gray-500">
-                            Industries We Serve
+                    <h2 className="text-3xl md:text-5xl font-bold mb-6 leading-[1.2]">
+                        Industries{" "}
+                        <span className="inline-block pb-2 text-transparent bg-clip-text bg-gradient-to-r from-blue-400 to-purple-500">
+                            We Serve
                         </span>
                     </h2>
                 </Reveal>

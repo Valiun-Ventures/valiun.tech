@@ -39,7 +39,7 @@ export function CallToAction({
                 </Link>
                 <Link
                     href={primaryButtonHref}
-                    className="bg-blue-600 hover:bg-blue-700 text-white px-6 py-3 rounded-lg text-sm font-bold shadow-lg shadow-blue-500/20 transition-all text-center"
+                    className="cta-highlight"
                 >
                     {primaryButtonText}
                 </Link>

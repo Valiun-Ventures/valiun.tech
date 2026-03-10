@@ -10,8 +10,8 @@ export function EngagementModels() {
         <Section className="relative bg-white/[0.02] border-y border-white/5 overflow-hidden">
             <div className="text-center mb-16 lg:mb-20 space-y-6 max-w-5xl mx-auto">
                 <Reveal width="100%">
-                    <h2 className="text-4xl md:text-6xl font-bold tracking-tight">
-                        Flexible <span className="text-transparent bg-clip-text bg-gradient-to-r from-blue-400 to-purple-500">Engagement Models</span>
+                    <h2 className="text-4xl md:text-6xl font-bold tracking-tight leading-[1.2]">
+                        Flexible <span className="inline-block pb-2 text-transparent bg-clip-text bg-gradient-to-r from-blue-400 to-purple-500">Engagement Models</span>
                     </h2>
                 </Reveal>
                 <Reveal width="100%" delay={0.2}>

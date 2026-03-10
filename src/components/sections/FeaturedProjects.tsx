@@ -41,8 +41,8 @@ export function FeaturedProjects() {
             <div className="flex flex-col md:flex-row justify-between items-end mb-16 lg:mb-20 gap-8">
                 <div className="max-w-5xl space-y-6">
                     <Reveal width="100%">
-                        <h2 className="text-4xl md:text-6xl font-bold tracking-tight">
-                            Featured <span className="text-transparent bg-clip-text bg-gradient-to-r from-blue-400 to-purple-500">Success Stories</span>
+                        <h2 className="text-4xl md:text-6xl font-bold tracking-tight leading-[1.2]">
+                            Featured <span className="inline-block pb-2 text-transparent bg-clip-text bg-gradient-to-r from-blue-400 to-purple-500">Success Stories</span>
                         </h2>
                     </Reveal>
                     <Reveal width="100%" delay={0.2}>
@@ -53,8 +53,8 @@ export function FeaturedProjects() {
                 </div>
 
                 <Reveal delay={0.3}>
-                    <Link href="/case-studies" className="hidden md:flex items-center text-white hover:text-blue-400 transition-colors font-medium group">
-                        View All Projects <ArrowRight className="ml-2 w-4 h-4 group-hover:translate-x-1 transition-transform" />
+                    <Link href="/case-studies" className="hidden md:flex cta-highlight">
+                        View All Projects <ArrowRight className="w-4 h-4" />
                     </Link>
                 </Reveal>
             </div>
@@ -90,9 +90,9 @@ export function FeaturedProjects() {
                 ))}
             </div>
 
-            <div className="mt-8 text-center md:hidden">
-                <Link href="/case-studies" className="inline-flex items-center text-white hover:text-blue-400 transition-colors font-medium">
-                    View All Projects <ArrowRight className="ml-2 w-4 h-4" />
+            <div className="mt-12 text-center md:hidden">
+                <Link href="/case-studies" className="cta-highlight">
+                    View All Projects <ArrowRight className="w-4 h-4" />
                 </Link>
             </div>
         </Section>

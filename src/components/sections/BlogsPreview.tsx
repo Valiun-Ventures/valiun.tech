@@ -51,9 +51,9 @@ export function BlogsPreview() {
                 {/* Header */}
                 <div className="text-center mb-16">
                     <Reveal>
-                        <h2 className="text-3xl md:text-5xl font-bold mb-4">
+                        <h2 className="text-3xl md:text-5xl font-bold mb-4 leading-[1.2]">
                             Latest{" "}
-                            <span className="text-transparent bg-clip-text bg-gradient-to-r from-blue-400 to-purple-600">
+                            <span className="inline-block pb-2 text-transparent bg-clip-text bg-gradient-to-r from-blue-400 to-purple-600">
                                 Insights
                             </span>
                         </h2>
@@ -130,7 +130,7 @@ export function BlogsPreview() {
                     <div className="text-center">
                         <Link
                             href="/blog"
-                            className="inline-flex items-center gap-2 px-8 py-4 bg-gradient-to-r from-blue-600 to-purple-600 hover:from-blue-700 hover:to-purple-700 text-white font-semibold rounded-full transition-all shadow-lg shadow-blue-500/25 hover:shadow-blue-500/40"
+                            className="cta-highlight"
                         >
                             Read All Articles
                             <ArrowRight className="w-5 h-5" />

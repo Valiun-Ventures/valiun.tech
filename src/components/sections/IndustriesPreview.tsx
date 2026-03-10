@@ -65,10 +65,10 @@ export function IndustriesPreview() {
                 ))}
             </div>
 
-            <div className="text-center mt-12">
-                <Link href="/industries" className="inline-flex items-center text-gray-400 hover:text-white transition-colors relative group">
+            <div className="text-center mt-16">
+                <Link href="/industries" className="cta-highlight">
                     View All Industries
-                    <span className="absolute -bottom-1 left-0 w-0 h-0.5 bg-blue-500 group-hover:w-full transition-all duration-300" />
+                    <ArrowRight className="w-4 h-4" />
                 </Link>
             </div>
         </Section>

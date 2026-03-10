@@ -13,7 +13,7 @@ export function AboutSection() {
                     <Reveal>
                         <h2 className="text-3xl md:text-5xl font-bold">
                             Building the <br />
-                            <span className="text-transparent bg-clip-text bg-gradient-to-r from-blue-400 to-purple-600">
+                            <span className="inline-block pb-2 text-transparent bg-clip-text bg-gradient-to-r from-blue-400 to-purple-600">
                                 Intelligent Future
                             </span>
                         </h2>

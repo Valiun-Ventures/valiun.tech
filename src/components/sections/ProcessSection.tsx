@@ -36,8 +36,8 @@ export function ProcessSection() {
         <Section id="process" className="relative">
             <div className="text-center mb-20 space-y-6">
                 <Reveal width="100%">
-                    <h2 className="text-4xl md:text-6xl font-bold tracking-tight">
-                        How We <span className="text-transparent bg-clip-text bg-gradient-to-r from-blue-400 to-purple-500">Work</span>
+                    <h2 className="text-4xl md:text-6xl font-bold tracking-tight leading-[1.2]">
+                        How We <span className="inline-block pb-2 text-transparent bg-clip-text bg-gradient-to-r from-blue-400 to-purple-500">Work</span>
                     </h2>
                 </Reveal>
                 <Reveal width="100%" delay={0.2}>

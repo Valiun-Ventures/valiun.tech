@@ -103,8 +103,8 @@ export function TechnologiesPreview() {
                             </div>
                         </Reveal>
                         <Reveal delay={0.1}>
-                            <h2 className="text-3xl md:text-6xl font-bold tracking-tight mb-6">
-                                Built with <span className="text-transparent bg-clip-text bg-gradient-to-r from-blue-400 to-purple-500">Cutting-Edge Tech</span>
+                            <h2 className="text-3xl md:text-6xl font-bold tracking-tight mb-6 leading-[1.2]">
+                                Built with <span className="inline-block pb-2 text-transparent bg-clip-text bg-gradient-to-r from-blue-400 to-purple-500">Cutting-Edge Tech</span>
                             </h2>
                         </Reveal>
                         <Reveal delay={0.2}>
@@ -218,7 +218,7 @@ export function TechnologiesPreview() {
 
                         <Link
                             href="/contact"
-                            className="inline-flex items-center gap-2 px-6 py-3 bg-white text-black rounded-full font-bold hover:bg-neutral-200 transition-colors"
+                            className="cta-highlight"
                         >
                             Get Started <ArrowRight className="w-4 h-4" />
                         </Link>

@@ -34,13 +34,21 @@ export function FAQSection() {
     const [openIndex, setOpenIndex] = useState<number | null>(null);
 
     return (
-        <Section className="py-20">
-            <div className="text-center mb-16 relative z-10">
+        <Section className="py-24">
+            <div className="text-center mb-20 relative z-10">
                 <Reveal width="100%">
-                    <h2 className="text-3xl md:text-5xl font-bold mb-4">Frequently Asked Questions</h2>
+                    <span className="text-blue-500 font-mono text-xs tracking-[0.3em] uppercase mb-4 block">Support</span>
+                </Reveal>
+                <Reveal width="100%">
+                    <h2 className="text-4xl md:text-6xl font-bold mb-6 tracking-tight leading-[1.2]">
+                        Frequently Asked{" "}
+                        <span className="inline-block pb-2 text-transparent bg-clip-text bg-gradient-to-r from-blue-400 to-purple-500">
+                            Questions
+                        </span>
+                    </h2>
                 </Reveal>
                 <Reveal width="100%" delay={0.2}>
-                    <p className="text-gray-400 text-lg">Answers to common queries about our services and processes.</p>
+                    <p className="text-gray-400 text-lg md:text-xl max-w-2xl mx-auto font-light leading-relaxed">Answers to common queries about our services and processes.</p>
                 </Reveal>
             </div>
 

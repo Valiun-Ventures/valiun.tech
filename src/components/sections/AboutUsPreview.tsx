@@ -49,7 +49,7 @@ export function AboutUsPreview() {
                         <Reveal>
                             <h2 className="text-3xl md:text-5xl font-bold">
                                 Your Strategic Partner in{" "}
-                                <span className="text-transparent bg-clip-text bg-gradient-to-r from-blue-400 to-purple-600">
+                                <span className="inline-block pb-2 text-transparent bg-clip-text bg-gradient-to-r from-blue-400 to-purple-600">
                                     Digital Evolution
                                 </span>
                             </h2>
@@ -69,7 +69,7 @@ export function AboutUsPreview() {
                             <div className="grid grid-cols-1 sm:grid-cols-3 gap-6 py-8 border-y border-white/10">
                                 {stats.map((stat, index) => (
                                     <div key={index} className="text-center">
-                                        <div className="text-3xl md:text-4xl font-bold text-transparent bg-clip-text bg-gradient-to-r from-blue-400 to-purple-600 mb-1">
+                                        <div className="text-3xl md:text-4xl font-bold inline-block pb-2 text-transparent bg-clip-text bg-gradient-to-r from-blue-400 to-purple-600 mb-1">
                                             {stat.value}
                                         </div>
                                         <div className="text-sm text-gray-500">{stat.label}</div>
@@ -81,7 +81,7 @@ export function AboutUsPreview() {
                         <Reveal delay={0.3}>
                             <Link
                                 href="/company/about"
-                                className="inline-flex items-center gap-2 px-8 py-4 bg-gradient-to-r from-blue-600 to-purple-600 hover:from-blue-700 hover:to-purple-700 text-white font-semibold rounded-full transition-all shadow-lg shadow-blue-500/25 hover:shadow-blue-500/40"
+                                className="cta-highlight"
                             >
                                 Learn More About Us
                                 <ArrowRight className="w-5 h-5" />

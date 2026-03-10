@@ -1,289 +1,309 @@
 "use client";
 
-import { useScroll, useTransform, m } from "framer-motion";
-import { useEffect, useRef, useState, useMemo } from "react";
-import { Button } from "@/components/ui/Button";
-import { ArrowRight } from "lucide-react";
+import { m, useInView, useMotionValue, useSpring, useTransform } from "framer-motion";
+import { useRef, useEffect, useState } from "react";
+import Link from "next/link";
+import { ArrowUpRight } from "lucide-react";
 
-const FRAME_COUNT = 240;
+// ── Subtle cursor spotlight ──────────────────────────────────────────────────
+function CursorSpotlight() {
+    const mouseX = useMotionValue(0);
+    const mouseY = useMotionValue(0);
+    const springX = useSpring(mouseX, { stiffness: 80, damping: 20 });
+    const springY = useSpring(mouseY, { stiffness: 80, damping: 20 });
 
-function pad(num: number, size: number) {
-    let s = num + "";
-    while (s.length < size) s = "0" + s;
-    return s;
-}
-
-export function Hero() {
-    const containerRef = useRef<HTMLDivElement>(null);
-    const canvasRef = useRef<HTMLCanvasElement>(null);
-    const [images, setImages] = useState<HTMLImageElement[]>([]);
-    const [imagesLoaded, setImagesLoaded] = useState(0);
-
-    const { scrollYProgress } = useScroll({
-        target: containerRef,
-        offset: ["start start", "end end"]
-    });
-
-    // We map 0-1 scroll progress to frame 1-240
-    const frameIndex = useTransform(scrollYProgress, [0, 1], [1, FRAME_COUNT]);
-
-    // Preload images
     useEffect(() => {
-        const loadedImages: HTMLImageElement[] = [];
-        let loadedCount = 0;
+        const move = (e: MouseEvent) => { mouseX.set(e.clientX); mouseY.set(e.clientY); };
+        window.addEventListener("mousemove", move);
+        return () => window.removeEventListener("mousemove", move);
+    }, [mouseX, mouseY]);
 
-        for (let i = 1; i <= FRAME_COUNT; i++) {
-            const img = new Image();
-            // Path structure established from earlier list_dir
-            img.src = `/images/hero-sequence/ezgif-frame-${pad(i, 3)}.jpg`;
-            img.onload = () => {
-                loadedCount++;
-                setImagesLoaded(loadedCount);
-            };
-            loadedImages.push(img);
-        }
-        setImages(loadedImages);
-    }, []);
-
-    // Draw frame to canvas attached to scroll
-    useEffect(() => {
-        if (imagesLoaded < FRAME_COUNT || !canvasRef.current) return;
-
-        const canvas = canvasRef.current;
-        const ctx = canvas.getContext("2d", { alpha: false }); // alpha false optimizes performance
-        if (!ctx) return;
-
-        let animationFrameId: number;
-
-        // Dynamic resize for maximum sharpness (Retina/High-DPI support)
-        const setCanvasSize = () => {
-            const dpr = window.devicePixelRatio || 1;
-            canvas.width = window.innerWidth * dpr;
-            canvas.height = window.innerHeight * dpr;
-            ctx.scale(dpr, dpr);
-
-            // Force redraw of current frame on resize
-            drawFrame(Math.min(FRAME_COUNT - 1, Math.max(0, Math.floor(frameIndex.get()) - 1)));
-        };
-
-        const drawFrame = (frameNo: number) => {
-            const img = images[frameNo];
-            if (img && img.complete) {
-                // Clear to match the exact black background #050505
-                ctx.fillStyle = "#050505";
-                ctx.fillRect(0, 0, window.innerWidth, window.innerHeight);
-
-                // Draw image preserving aspect ratio and centering
-                const hRatio = window.innerWidth / img.width;
-                const vRatio = window.innerHeight / img.height;
-                // Use Math.max if we want to cover (Apple style), Math.min to contain
-                const ratio = Math.max(hRatio, vRatio);
-
-                const cw = img.width * ratio;
-                const ch = img.height * ratio;
-                const cx = (window.innerWidth - cw) / 2;
-                const cy = (window.innerHeight - ch) / 2;
-
-                // Push quality up slightly
-                ctx.imageSmoothingEnabled = true;
-                ctx.imageSmoothingQuality = "high";
-
-                // Enhance image quality slightly via Canvas API filters
-                ctx.filter = "contrast(1.2) saturate(1.25) brightness(1.08) drop-shadow(0px 0px 20px rgba(255,255,255,0.05))";
-                ctx.drawImage(img, 0, 0, img.width, img.height, cx, cy, cw, ch);
-                ctx.filter = "none"; // Reset filter
-            }
-        };
-
-        const unsubscribe = frameIndex.on("change", (latest) => {
-            const frame = Math.min(FRAME_COUNT - 1, Math.max(0, Math.floor(latest) - 1));
-            cancelAnimationFrame(animationFrameId);
-            animationFrameId = requestAnimationFrame(() => drawFrame(frame));
-        });
-
-        // Setup size and initial frame
-        window.addEventListener("resize", setCanvasSize);
-        setCanvasSize();
-
-        return () => {
-            window.removeEventListener("resize", setCanvasSize);
-            unsubscribe();
-            cancelAnimationFrame(animationFrameId);
-        };
-    }, [frameIndex, images, imagesLoaded]);
-
-
-    // --- Storytelling Narrative Opacities mapped to Scroll % --- //
-    // Intro (0 - 15%)
-    const introOpacity = useTransform(scrollYProgress, [0, 0.05, 0.12, 0.15], [1, 1, 0, 0]);
-
-    // Engineering Reveal (20% - 40%)
-    const engOpacity = useTransform(scrollYProgress, [0.15, 0.20, 0.35, 0.40], [0, 1, 1, 0]);
-    const engY = useTransform(scrollYProgress, [0.15, 0.20], [50, 0]);
-
-    // Noise Cancelling (45% - 65%)
-    const ancOpacity = useTransform(scrollYProgress, [0.40, 0.45, 0.60, 0.65], [0, 1, 1, 0]);
-    const ancY = useTransform(scrollYProgress, [0.40, 0.45], [50, 0]);
-
-    // Sound & Upscaling (70% - 85%)
-    const soundOpacity = useTransform(scrollYProgress, [0.65, 0.70, 0.80, 0.85], [0, 1, 1, 0]);
-    const soundY = useTransform(scrollYProgress, [0.65, 0.70], [50, 0]);
-
-    // Reassembly & Outro (90% - 100%)
-    const outroOpacity = useTransform(scrollYProgress, [0.85, 0.90, 1, 1], [0, 1, 1, 1]);
-    const outroY = useTransform(scrollYProgress, [0.85, 0.90], [50, 0]);
-
+    const left = useTransform(springX, (v) => `${v - 300}px`);
+    const top = useTransform(springY, (v) => `${v - 300}px`);
 
     return (
-        <section ref={containerRef} className="relative w-full h-[400vh] bg-[#050505] font-sans">
+        <m.div
+            className="pointer-events-none fixed z-[5] hidden lg:block"
+            style={{ left, top, width: 600, height: 600 }}
+        >
+            <div className="w-full h-full rounded-full bg-[radial-gradient(circle,rgba(124,58,237,0.09)_0%,transparent_70%)]" />
+        </m.div>
+    );
+}
 
-            {/* Sticky Canvas Container */}
-            <div className="sticky top-0 w-full h-screen overflow-hidden bg-[#050505]">
+// ── Animated count-up ────────────────────────────────────────────────────────
+function CountUp({ target, suffix = "" }: { target: number; suffix?: string }) {
+    const ref = useRef<HTMLSpanElement>(null);
+    const inView = useInView(ref, { once: true });
+    const [count, setCount] = useState(0);
 
-                {/* Loader showing exact 0% -> 100% until 240 frames are buffered */}
-                {imagesLoaded < FRAME_COUNT && (
-                    <div className="absolute inset-0 z-50 flex items-center justify-center bg-[#050505]">
-                        <div className="flex flex-col items-center">
-                            <span className="text-white/60 tracking-widest text-sm uppercase mb-4">Loading Sequence</span>
-                            <div className="w-48 h-1 bg-white/10 rounded-full overflow-hidden">
-                                <div
-                                    className="h-full bg-blue-600 transition-all duration-300"
-                                    style={{ width: `${(imagesLoaded / FRAME_COUNT) * 100}%` }}
-                                />
-                            </div>
-                        </div>
-                    </div>
-                )}
+    useEffect(() => {
+        if (!inView) return;
+        let start = 0;
+        const step = target / 50;
+        const timer = setInterval(() => {
+            start += step;
+            if (start >= target) { setCount(target); clearInterval(timer); }
+            else setCount(Math.floor(start));
+        }, 22);
+        return () => clearInterval(timer);
+    }, [inView, target]);
 
-                <canvas
-                    ref={canvasRef}
-                    className="w-full h-full object-cover select-none pointer-events-none"
-                    style={{ background: "#050505" }}
+    return <span ref={ref}>{count}{suffix}</span>;
+}
+
+// ── Word-by-word slide-up reveal ─────────────────────────────────────────────
+function WordReveal({ text, className = "", delay = 0, as: Tag = "span" }: {
+    text: string; className?: string; delay?: number; as?: "span" | "h1" | "h2";
+}) {
+    const ref = useRef<HTMLDivElement>(null);
+    const inView = useInView(ref, { once: true, margin: "-5% 0px" });
+    return (
+        <Tag>
+            <div ref={ref} className={`inline-flex flex-wrap items-baseline ${className}`} aria-label={text}>
+                {text.split(" ").map((word, i) => (
+                    <span key={i} className="overflow-hidden inline-block mr-[0.2em] last:mr-0">
+                        <m.span
+                            className="inline-block"
+                            initial={{ y: "108%", opacity: 0 }}
+                            animate={inView ? { y: "0%", opacity: 1 } : {}}
+                            transition={{ duration: 0.8, delay: delay + i * 0.09, ease: [0.22, 1, 0.36, 1] }}
+                        >
+                            {word}
+                        </m.span>
+                    </span>
+                ))}
+            </div>
+        </Tag>
+    );
+}
+
+// ── Horizontal rule that draws in from left ───────────────────────────────────
+function DrawLine({ delay = 0, className = "" }: { delay?: number; className?: string }) {
+    return (
+        <m.div
+            className={`h-px bg-white/12 ${className}`}
+            initial={{ scaleX: 0, originX: 0 }}
+            animate={{ scaleX: 1 }}
+            transition={{ duration: 1.1, delay, ease: [0.22, 1, 0.36, 1] }}
+        />
+    );
+}
+
+// ── Infinite horizontal marquee ───────────────────────────────────────────────
+const TICKER_ITEMS = [
+    "Agentic AI", "Cloud Architecture", "Mobile Apps", "DevSecOps",
+    "Web Engineering", "Data Pipelines", "UI/UX Design", "Backend Systems",
+];
+
+function Ticker() {
+    const items = [...TICKER_ITEMS, ...TICKER_ITEMS];
+    return (
+        <div className="w-full overflow-hidden flex items-center py-4 border-y border-white/[0.05]">
+            <m.div
+                className="flex gap-12 whitespace-nowrap"
+                animate={{ x: ["0%", "-50%"] }}
+                transition={{ repeat: Infinity, duration: 28, ease: "linear" }}
+            >
+                {items.map((item, i) => (
+                    <span key={i} className="flex items-center gap-4 text-white/40 text-xs font-semibold tracking-[0.15em] uppercase">
+                        <span className="w-1 h-1 rounded-full bg-purple-500/80 inline-block" />
+                        {item}
+                    </span>
+                ))}
+            </m.div>
+        </div>
+    );
+}
+
+const stats = [
+    { target: 50, suffix: "+", label: "Projects" },
+    { target: 6, suffix: "+", label: "Years" },
+    { target: 99, suffix: "%", label: "Retention" },
+];
+
+export function Hero() {
+    return (
+        <>
+            <CursorSpotlight />
+
+            <section className="relative w-full min-h-screen bg-[#050505] overflow-hidden flex flex-col">
+
+                {/* ── Film grain ── */}
+                <div
+                    className="pointer-events-none absolute inset-0 z-10 opacity-[0.032]"
+                    style={{
+                        backgroundImage: `url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E")`,
+                        backgroundRepeat: "repeat",
+                        backgroundSize: "128px 128px",
+                    }}
                 />
 
-                {/* --- Text Overlays (Floating above canvas) --- */}
+                {/* ── Ambient light smears ── */}
+                <div className="absolute inset-0 pointer-events-none z-0">
+                    <div className="absolute" style={{ top: "-8%", right: "8%", width: 600, height: 600, background: "radial-gradient(circle, rgba(37,99,235,0.11) 0%, transparent 65%)", filter: "blur(50px)" }} />
+                    <div className="absolute" style={{ top: "35%", left: "-8%", width: 450, height: 450, background: "radial-gradient(circle, rgba(124,58,237,0.1) 0%, transparent 65%)", filter: "blur(50px)" }} />
+                    <div className="absolute" style={{ bottom: "5%", right: "12%", width: 350, height: 350, background: "radial-gradient(circle, rgba(109,40,217,0.08) 0%, transparent 65%)", filter: "blur(50px)" }} />
+                </div>
 
-                {/* Intro Section */}
-                <m.div
-                    style={{ opacity: introOpacity }}
-                    className="absolute inset-0 flex flex-col items-center justify-center text-center px-4 w-full pointer-events-none"
-                >
-                    <m.div
-                        className="inline-block px-4 py-1.5 mb-6 rounded-full border border-purple-500/30 bg-purple-500/10 backdrop-blur-xl"
-                    >
-                        <span className="text-sm font-medium text-purple-400 tracking-wide uppercase">Engineering the Future</span>
-                    </m.div>
-                    <h1 className="text-5xl sm:text-7xl lg:text-[7rem] font-bold text-transparent bg-clip-text bg-gradient-to-r from-blue-400 via-purple-500 to-orange-400 mb-4 tracking-tight drop-shadow-2xl">
-                        Valiun Tech
-                    </h1>
-                    <p className="text-xl sm:text-2xl lg:text-3xl text-white/90 font-medium mb-3">
-                        The Future of Tech is Valiun.
-                    </p>
-                    <p className="text-sm sm:text-base text-white/60 max-w-lg font-light">
-                        We empower enterprises with Agentic AI, <br className="hidden sm:block" /> Scalable Architectures, and premium digital experiences.
-                    </p>
-                </m.div>
-
-                {/* Engineering Reveal Section */}
-                <m.div
-                    style={{ opacity: engOpacity, y: engY }}
-                    className="absolute inset-y-0 left-0 w-full lg:w-1/2 flex flex-col justify-center px-6 sm:px-12 lg:px-24 pointer-events-none"
-                >
-                    <h2 className="text-4xl sm:text-5xl lg:text-6xl font-bold text-transparent bg-clip-text bg-gradient-to-r from-blue-400 via-purple-500 to-orange-400 mb-6 tracking-tight drop-shadow-2xl">
-                        Agentic AI <br /> capabilities.
-                    </h2>
-                    <p className="text-lg text-white/60 max-w-md leading-relaxed font-light drop-shadow-lg mb-4">
-                        Empowering enterprises with intelligent automation and advanced machine learning models.
-                    </p>
-                    <p className="text-lg text-white/60 max-w-md leading-relaxed font-light drop-shadow-lg">
-                        Custom AI agents designed to optimize workflows and drive exponential growth.
-                    </p>
-                </m.div>
-
-                {/* Noise Cancelling Section */}
-                <m.div
-                    style={{ opacity: ancOpacity, y: ancY }}
-                    className="absolute inset-y-0 right-0 w-full lg:w-[45%] flex flex-col justify-center text-left lg:text-right items-start lg:items-end px-6 sm:px-12 lg:px-24 pointer-events-none"
-                >
-                    <h2 className="text-4xl sm:text-5xl lg:text-6xl font-bold text-transparent bg-clip-text bg-gradient-to-r from-blue-400 via-purple-500 to-orange-400 mb-8 tracking-tight drop-shadow-2xl">
-                        Scalable <br /> architectures.
-                    </h2>
-                    <ul className="space-y-4 text-left lg:text-right">
-                        <li className="text-lg text-white/80 font-medium tracking-wide">Robust infrastructure designed for high availability.</li>
-                        <li className="text-lg text-white/80 font-medium tracking-wide">Microservices and serverless architectures tailored to your needs.</li>
-                        <li className="text-lg text-white/80 font-medium tracking-wide">Future-proof engineering that scales with your business.</li>
-                    </ul>
-                </m.div>
-
-                {/* Sound Quality Section */}
-                <m.div
-                    style={{ opacity: soundOpacity, y: soundY }}
-                    className="absolute inset-y-0 left-0 w-full lg:w-1/2 flex flex-col justify-center px-6 sm:px-12 lg:px-24 pointer-events-none"
-                >
-                    <h2 className="text-4xl sm:text-5xl lg:text-6xl font-bold text-transparent bg-clip-text bg-gradient-to-r from-blue-400 via-purple-500 to-orange-400 mb-6 tracking-tight drop-shadow-2xl">
-                        Premium, <br /> digital experiences.
-                    </h2>
-                    <p className="text-lg text-white/60 max-w-md leading-relaxed font-light drop-shadow-lg mb-4">
-                        Awwwards-level design and flawless user interfaces.
-                    </p>
-                    <p className="text-lg text-white/60 max-w-md leading-relaxed font-light drop-shadow-lg">
-                        We craft experiences that captivate users and elevate enterprise brands.
-                    </p>
-                </m.div>
-
-                {/* Outro / Final State */}
-                <m.div
-                    style={{ opacity: outroOpacity, y: outroY }}
-                    className="absolute inset-0 flex flex-col items-center justify-center text-center px-4 w-full pointer-events-auto"
-                >
-                    <div className="absolute inset-0 bg-gradient-to-t from-[#050505] via-transparent to-transparent opacity-80 pointer-events-none" />
-
-                    <div className="relative z-10 mt-[30vh]"> {/* Push content down so it doesn't block the reassembled headphones entirely */}
+                {/* ── Top meta bar ── */}
+                <div className="relative z-20 px-6 sm:px-10 lg:px-16 pt-10 sm:pt-12">
+                    <DrawLine delay={0.2} />
+                    <div className="flex items-center justify-between mt-3 mb-6">
                         <m.div
-                            initial={{ opacity: 0 }}
-                            animate={{ opacity: 1 }}
-                            transition={{ duration: 1, delay: 0.8 }}
-                            className="mb-8 border-b border-white/10 w-full flex items-center justify-center gap-8 pb-8"
+                            initial={{ opacity: 0, y: 6 }}
+                            animate={{ opacity: 1, y: 0 }}
+                            transition={{ duration: 0.5, delay: 0.45 }}
+                            className="flex items-center gap-3"
                         >
-                            <div className="flex flex-col items-center">
-                                <span className="text-3xl font-bold text-white mb-1">99<span className="text-purple-500">%</span></span>
-                                <span className="text-xs text-gray-500 font-semibold uppercase tracking-wider">Client Retention</span>
-                            </div>
-                            <div className="w-px h-10 bg-white/10" />
-                            <div className="flex flex-col items-center">
-                                <span className="text-3xl font-bold text-white mb-1">24<span className="text-blue-500">/7</span></span>
-                                <span className="text-xs text-gray-500 font-semibold uppercase tracking-wider">Enterprise Support</span>
-                            </div>
+                            <span className="w-1.5 h-1.5 rounded-full bg-green-400 animate-pulse" />
+                            <span className="text-[11px] font-mono tracking-[0.22em] uppercase text-white/30">
+                                Available for Projects
+                            </span>
+                        </m.div>
+                        <m.span
+                            initial={{ opacity: 0, y: 6 }}
+                            animate={{ opacity: 1, y: 0 }}
+                            transition={{ duration: 0.5, delay: 0.45 }}
+                            className="text-[11px] font-mono tracking-[0.22em] uppercase text-white/25 hidden sm:block"
+                        >
+                            Mumbai, India — Est. 2018
+                        </m.span>
+                    </div>
+                </div>
+
+                {/* ── Headline ── */}
+                <div className="relative z-20 flex-1 flex flex-col justify-center px-6 sm:px-10 lg:px-16">
+
+                    <div className="mb-6">
+                        {/* Line 1 */}
+                        <div className="overflow-hidden mb-1">
+                            <m.p
+                                initial={{ opacity: 0, x: -16 }}
+                                animate={{ opacity: 1, x: 0 }}
+                                transition={{ duration: 0.5, delay: 0.55 }}
+                                className="text-[11px] font-mono tracking-[0.25em] uppercase text-purple-400/80 mb-4"
+                            >
+                                ✦ Enterprise Technology Partner
+                            </m.p>
+                        </div>
+
+                        <h1 className="font-bold leading-[0.9] tracking-[-0.04em] text-white uppercase text-[clamp(60px,11.5vw,165px)]">
+                            <WordReveal text="We Build" delay={0.5} className="block" />
+                            <span className="block">
+                                <span className="overflow-hidden inline-block mr-[0.15em]">
+                                    <m.span
+                                        className="inline-block pb-4 text-white"
+                                        initial={{ y: "108%", opacity: 0 }}
+                                        animate={{ y: "0%", opacity: 1 }}
+                                        transition={{ duration: 0.8, delay: 0.66, ease: [0.22, 1, 0.36, 1] }}
+                                    >
+                                        What&apos;s
+                                    </m.span>
+                                </span>
+                                <span className="overflow-hidden inline-block">
+                                    <m.span
+                                        className="inline-block pb-4 text-transparent bg-clip-text bg-gradient-to-r from-blue-400 via-purple-500 to-violet-400"
+                                        initial={{ y: "108%", opacity: 0 }}
+                                        animate={{ y: "0%", opacity: 1 }}
+                                        transition={{ duration: 0.8, delay: 0.78, ease: [0.22, 1, 0.36, 1] }}
+                                    >
+                                        Next.
+                                    </m.span>
+                                </span>
+                            </span>
+                        </h1>
+                    </div>
+
+                    {/* ── Marquee ── */}
+                    <m.div
+                        initial={{ opacity: 0 }}
+                        animate={{ opacity: 1 }}
+                        transition={{ delay: 1.1, duration: 0.6 }}
+                        className="mb-10"
+                    >
+                        <Ticker />
+                    </m.div>
+
+                    {/* ── Bottom grid ── */}
+                    <div className="grid grid-cols-1 lg:grid-cols-[1fr_auto_auto] gap-8 items-end">
+
+                        {/* Body copy */}
+                        <m.p
+                            className="text-white/40 text-base sm:text-lg font-light leading-[1.75] max-w-sm"
+                            initial={{ opacity: 0, y: 18 }}
+                            animate={{ opacity: 1, y: 0 }}
+                            transition={{ duration: 0.7, delay: 1.15 }}
+                        >
+                            Enterprise-grade AI systems, cloud architectures,
+                            and digital products — built to perform at scale,
+                            and designed to last.
+                        </m.p>
+
+                        {/* Stats */}
+                        <m.div
+                            className="flex gap-10 lg:gap-14"
+                            initial={{ opacity: 0, y: 18 }}
+                            animate={{ opacity: 1, y: 0 }}
+                            transition={{ duration: 0.7, delay: 1.25 }}
+                        >
+                            {stats.map(({ target, suffix, label }) => (
+                                <div key={label} className="flex flex-col">
+                                    <span className="text-3xl sm:text-4xl font-bold text-white leading-none tracking-tight mb-1 tabular-nums">
+                                        <CountUp target={target} suffix={suffix} />
+                                    </span>
+                                    <span className="text-[10px] tracking-[0.15em] uppercase text-white/25 font-medium">{label}</span>
+                                </div>
+                            ))}
                         </m.div>
 
-                        <h2 className="text-5xl sm:text-6xl lg:text-7xl font-bold tracking-tight text-transparent bg-clip-text bg-gradient-to-r from-blue-400 via-purple-500 to-orange-400 mb-4 drop-shadow-2xl">
-                            Start Transformation. <br className="hidden sm:block" /> Scale Infinitely.
-                        </h2>
-                        <p className="text-xl text-white/60 mb-10 font-light max-w-2xl mx-auto">
-                            Partner with Valiun to build the next generation of digital products.
-                        </p>
-
-                        <div className="flex flex-col sm:flex-row gap-6 justify-center items-center">
-                            <Button
+                        {/* CTAs */}
+                        <m.div
+                            className="flex flex-col sm:flex-row lg:flex-row gap-4 lg:items-center"
+                            initial={{ opacity: 0, y: 18 }}
+                            animate={{ opacity: 1, y: 0 }}
+                            transition={{ duration: 0.7, delay: 1.35 }}
+                        >
+                            <Link
                                 href="/contact"
-                                className="bg-gradient-to-r from-purple-600 to-blue-600 hover:from-purple-500 hover:to-blue-500 text-white rounded-full px-10 py-6 text-lg font-medium tracking-wide border-none shadow-[0_0_20px_rgba(147,51,234,0.3)] transition-all"
+                                className="cta-highlight"
                             >
-                                Start Transformation
-                            </Button>
-
-                            <Button
-                                variant="link"
+                                Start a Project
+                                <ArrowUpRight className="w-4 h-4 group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-transform" />
+                            </Link>
+                            <Link
                                 href="/services"
-                                className="text-white hover:text-white/80 text-lg group"
+                                className="group inline-flex items-center justify-center gap-2 px-8 py-3.5 rounded-lg border border-white/10 hover:border-purple-500/40 text-white/50 hover:text-white font-medium text-sm transition-all duration-300 whitespace-nowrap hover:bg-purple-500/5 h-[52px]"
                             >
                                 Explore Capabilities
-                                <ArrowRight className="w-4 h-4 ml-2 group-hover:translate-x-1 transition-transform" />
-                            </Button>
-                        </div>
+                                <ArrowUpRight className="w-4 h-4 group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-transform" />
+                            </Link>
+                        </m.div>
                     </div>
-                </m.div>
+                </div>
 
-            </div>
-        </section>
+                {/* ── Bottom rule + footer line ── */}
+                <div className="relative z-20 px-6 sm:px-10 lg:px-16 pb-8 mt-10">
+                    <DrawLine delay={1.1} />
+                    <div className="flex items-center justify-between mt-3">
+                        <m.span
+                            initial={{ opacity: 0 }} animate={{ opacity: 1 }}
+                            transition={{ delay: 1.4, duration: 0.5 }}
+                            className="text-[11px] font-mono tracking-[0.18em] uppercase text-white/40"
+                        >
+                            © 2026 Valiun Ventures
+                        </m.span>
+                        <m.span
+                            initial={{ opacity: 0 }} animate={{ opacity: 1 }}
+                            transition={{ delay: 1.4, duration: 0.5 }}
+                            className="text-[11px] font-mono tracking-[0.18em] uppercase text-white/40"
+                        >
+                            Scroll to explore ↓
+                        </m.span>
+                    </div>
+                </div>
+
+            </section>
+        </>
     );
 }

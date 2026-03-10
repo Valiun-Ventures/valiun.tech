@@ -23,8 +23,8 @@ export function ServicesOverview() {
         <Section id="services" className="relative z-10">
             <div className="text-center mb-20 space-y-6">
                 <Reveal width="100%">
-                    <h2 className="text-4xl md:text-6xl font-bold tracking-tight">
-                        Core <span className="text-transparent bg-clip-text bg-gradient-to-r from-blue-400 to-purple-500">Services</span>
+                    <h2 className="text-4xl md:text-6xl font-bold tracking-tight leading-[1.2]">
+                        Core <span className="inline-block pb-2 text-transparent bg-clip-text bg-gradient-to-r from-blue-400 to-purple-500">Services</span>
                     </h2>
                 </Reveal>
                 <Reveal width="100%" delay={0.4}>
@@ -59,10 +59,10 @@ export function ServicesOverview() {
                 ))}
             </div>
 
-            <div className="text-center mt-12">
-                <Link href="/services" className="inline-flex items-center text-gray-400 hover:text-white transition-colors relative group">
+            <div className="text-center mt-16">
+                <Link href="/services" className="cta-highlight">
                     View All Services
-                    <span className="absolute -bottom-1 left-0 w-0 h-0.5 bg-blue-500 group-hover:w-full transition-all duration-300" />
+                    <ArrowRight className="w-4 h-4" />
                 </Link>
             </div>
         </Section>

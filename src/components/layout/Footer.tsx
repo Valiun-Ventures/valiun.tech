@@ -1,100 +1,125 @@
+"use client";
+import React from "react";
+import {
+    Facebook,
+    Instagram,
+    Twitter,
+    Linkedin,
+    Globe,
+} from "lucide-react";
+import { FooterBackgroundGradient, TextHoverEffect } from "@/components/ui/hover-footer";
 import Link from "next/link";
 import { navigation } from "@/lib/navigation";
-import { Logo } from "@/components/ui/Logo";
-import { Twitter, Linkedin, Github, Instagram } from "lucide-react";
 
 export function Footer() {
+    // Extract navigation groups
+    const services = navigation.find(n => n.label === "Services")?.children || [];
+    const industries = navigation.find(n => n.label === "Industries")?.children || [];
+    const company = navigation.find(n => n.label === "Company")?.children || [];
+
+    // Footer link data expanded to be more comprehensive
+    const footerLinks = [
+        {
+            title: "Services",
+            links: services.slice(0, 5).map(s => ({ label: s.label, href: s.href })),
+        },
+        {
+            title: "Industries",
+            links: industries.slice(0, 5).map(i => ({ label: i.label, href: i.href })),
+        },
+        {
+            title: "Company",
+            links: [
+                ...company.map(c => ({ label: c.label, href: c.href })),
+                { label: "Technologies", href: "/technologies" },
+                { label: "Case Studies", href: "/case-studies" },
+            ],
+        },
+    ];
+
+    // Social media icons
+    const socialLinks = [
+        { icon: <Facebook size={18} />, label: "Facebook", href: "#" },
+        { icon: <Instagram size={18} />, label: "Instagram", href: "#" },
+        { icon: <Twitter size={18} />, label: "Twitter", href: "#" },
+        { icon: <Linkedin size={18} />, label: "Linkedin", href: "#" },
+        { icon: <Globe size={18} />, label: "Globe", href: "#" },
+    ];
+
     return (
-        <footer className="bg-black border-t border-white/10 pt-20 pb-10">
-            <div className="container mx-auto px-6">
-                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-12 mb-16">
-                    {/* Brand Column */}
-                    <div className="lg:col-span-2">
-                        <Logo variant="white" className="mb-6" />
-                        <p className="text-gray-400 mb-6 max-w-sm">
-                            Valiun Tech delivers distinct, premium technology solutions.
-                            From AI-driven automation to enterprise cloud architectures,
-                            we build the future of digital business.
-                        </p>
-                        <div className="flex space-x-4">
-                            <SocialLink href="#" icon={<Linkedin />} />
-                            <SocialLink href="#" icon={<Twitter />} />
-                            <SocialLink href="#" icon={<Instagram />} />
-                            <SocialLink href="#" icon={<Github />} />
+        <footer className="bg-[#0F0F11]/10 relative h-fit rounded-[2.5rem] overflow-hidden m-4 md:m-8 border border-white/5">
+            <div className="max-w-7xl mx-auto p-8 md:p-14 z-40 relative">
+                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-12 md:gap-8 lg:gap-12 pb-12">
+                    {/* Brand section */}
+                    <div className="flex flex-col space-y-4 lg:col-span-2 text-center md:text-left">
+                        <div className="flex items-center justify-center md:justify-start space-x-2">
+                            <span className="text-[#3ca2fa] text-3xl font-extrabold">
+                                ✦
+                            </span>
+                            <span className="text-white text-3xl font-bold font-[helvetica]">Valiun</span>
                         </div>
+                        <p className="text-gray-400 text-sm leading-relaxed max-w-xs mx-auto md:mx-0">
+                            Engineering digital dominance through Agentic AI, modern cloud architectures, and elite engineering solutions for the intelligent future.
+                        </p>
                     </div>
 
-                    {/* Links Columns */}
-                    {/* We will manually group some links or just map top level */}
-                    <div className="flex flex-col space-y-4">
-                        <h3 className="text-white font-semibold mb-2">Services</h3>
-                        <ul className="space-y-2">
-                            {navigation.find(n => n.label === "Services")?.children?.slice(0, 5).map(service => (
-                                <li key={service.label}>
-                                    <Link href={service.href} className="text-gray-400 hover:text-white text-sm transition-colors">
-                                        {service.label}
-                                    </Link>
-                                </li>
-                            ))}
-                            <li>
-                                <Link href="/services" className="text-blue-400 hover:text-blue-300 text-sm transition-colors pt-2 block">
-                                    View All Services &rarr;
-                                </Link>
-                            </li>
-                        </ul>
-                    </div>
-
-                    <div className="flex flex-col space-y-4">
-                        <h3 className="text-white font-semibold mb-2">Company</h3>
-                        <ul className="space-y-2">
-                            {navigation.find(n => n.label === "Company")?.children?.map(item => (
-                                <li key={item.label}>
-                                    <Link href={item.href} className="text-gray-400 hover:text-white text-sm transition-colors">
-                                        {item.label}
-                                    </Link>
-                                </li>
-                            ))}
-                        </ul>
-                    </div>
-
-                    <div className="flex flex-col space-y-4">
-                        <h3 className="text-white font-semibold mb-2">Connect</h3>
-                        <ul className="space-y-2">
-                            <li>
-                                <Link href="/contact" className="text-gray-400 hover:text-white text-sm transition-colors">
-                                    Contact Support
-                                </Link>
-                            </li>
-                            <li>
-                                <Link href="/case-studies" className="text-gray-400 hover:text-white text-sm transition-colors">
-                                    Case Studies
-                                </Link>
-                            </li>
-                        </ul>
-                    </div>
+                    {/* Footer link sections */}
+                    {footerLinks.map((section) => (
+                        <div key={section.title} className="text-center md:text-left">
+                            <h4 className="text-white text-base font-semibold mb-6">
+                                {section.title}
+                            </h4>
+                            <ul className="space-y-3">
+                                {section.links.map((link) => (
+                                    <li key={link.label}>
+                                        <Link
+                                            href={link.href}
+                                            className="text-gray-400 hover:text-[#3ca2fa] transition-colors text-sm"
+                                        >
+                                            {link.label}
+                                        </Link>
+                                    </li>
+                                ))}
+                            </ul>
+                        </div>
+                    ))}
                 </div>
 
-                <div className="border-t border-white/10 pt-8 flex flex-col md:flex-row justify-between items-center bg-black">
-                    <p className="text-gray-500 text-sm mb-4 md:mb-0">
-                        &copy; {new Date().getFullYear()} Valiun Tech. All rights reserved.
+                {/* Footer bottom bar */}
+                <div className="flex flex-col md:flex-row justify-between items-center text-sm space-y-6 md:space-y-0 relative z-50 pt-12 border-t border-white/5 mt-8">
+                    {/* Copyright - Left */}
+                    <p className="text-gray-500 text-xs text-center md:text-left md:flex-1">
+                        &copy; {new Date().getFullYear()} Valiun Ventures. All rights reserved.
                     </p>
-                    <div className="flex space-x-6">
-                        <Link href="/privacy" className="text-gray-500 hover:text-white text-sm">Privacy Policy</Link>
-                        <Link href="/terms" className="text-gray-500 hover:text-white text-sm">Terms & Conditions</Link>
+
+                    {/* Social Links - Center */}
+                    <div className="flex justify-center space-x-6 md:flex-1">
+                        {socialLinks.map(({ icon, label, href }) => (
+                            <a
+                                key={label}
+                                href={href}
+                                aria-label={label}
+                                className="text-gray-400 hover:text-[#3ca2fa] transition-colors"
+                            >
+                                {icon}
+                            </a>
+                        ))}
+                    </div>
+
+                    {/* Legal Links - Right */}
+                    <div className="flex justify-center md:justify-end space-x-6 text-gray-500 text-xs md:flex-1">
+                        <Link href="/privacy" className="hover:text-[#3ca2fa] transition-colors">Privacy Policy</Link>
+                        <Link href="/terms" className="hover:text-[#3ca2fa] transition-colors">Terms of Service</Link>
                     </div>
                 </div>
             </div>
-        </footer>
-    );
-}
 
-function SocialLink({ href, icon }: { href: string; icon: React.ReactNode }) {
-    return (
-        <a
-            href={href}
-            className="w-10 h-10 rounded-full bg-white/5 flex items-center justify-center text-gray-400 hover:bg-blue-600 hover:text-white transition-all transform hover:-translate-y-1"
-        >
-            {icon}
-        </a>
+            {/* Text hover effect */}
+            <div className="lg:flex hidden h-[22rem] -mt-36 -mb-24 opacity-20">
+                <TextHoverEffect text="Valiun" className="z-40" />
+            </div>
+
+            <FooterBackgroundGradient />
+        </footer>
     );
 }
