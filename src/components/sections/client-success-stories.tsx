@@ -172,7 +172,7 @@ export const ClientSuccessStories = () => {
                     </div>
 
                     <h2 id="testimonials-heading" className="text-4xl md:text-5xl font-extrabold tracking-tight mt-6 text-center text-white transition-colors">
-                        What our <span className="text-transparent bg-clip-text bg-gradient-to-r from-blue-400 to-purple-500 bg-[length:200%_auto] animate-gradient">Clients Says</span>
+                        What our <span className="text-transparent bg-clip-text bg-gradient-to-r from-[#3ca2fa] via-[#bc13fe] to-[#3ca2fa] bg-[length:200%_auto] animate-gradient">Clients Says</span>
                     </h2>
                     <p className="text-center mt-5 text-neutral-500 dark:text-neutral-400 text-lg leading-relaxed max-w-sm transition-colors">
                         Discover how thousands of teams scale their operations with our platform.
