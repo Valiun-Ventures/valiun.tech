@@ -51,7 +51,7 @@ export function IntegrationsSection() {
                     {/* Row 1 */}
                     <div className="flex gap-8 sm:gap-10 whitespace-nowrap animate-scroll-left hover:[animation-play-state:paused] transition-all">
                         {repeatedIcons(ICONS_ROW1, 4).map((src, i) => (
-                            <div key={i} className="h-20 w-20 sm:h-24 sm:w-24 flex-shrink-0 rounded-2xl bg-white/5 border border-white/10 shadow-lg backdrop-blur-md flex items-center justify-center hover:scale-110 hover:bg-white/10 transition-all cursor-pointer group">
+                            <div key={i} className="h-20 w-20 sm:h-24 sm:w-24 flex-shrink-0 rounded-full bg-white/5 border border-white/10 shadow-lg backdrop-blur-md flex items-center justify-center hover:scale-110 hover:bg-white/10 transition-all cursor-pointer group">
                                 <img src={src} alt="Integration icon" className="h-10 w-10 sm:h-12 sm:w-12 object-contain opacity-70 group-hover:opacity-100 transition-opacity drop-shadow-[0_0_15px_rgba(255,255,255,0.3)]" />
                             </div>
                         ))}
@@ -60,7 +60,7 @@ export function IntegrationsSection() {
                     {/* Row 2 */}
                     <div className="flex gap-8 sm:gap-10 whitespace-nowrap mt-8 sm:mt-10 animate-scroll-right hover:[animation-play-state:paused] transition-all">
                         {repeatedIcons(ICONS_ROW2, 4).map((src, i) => (
-                            <div key={i} className="h-20 w-20 sm:h-24 sm:w-24 flex-shrink-0 rounded-2xl bg-white/5 border border-white/10 shadow-lg backdrop-blur-md flex items-center justify-center hover:scale-110 hover:bg-white/10 transition-all cursor-pointer group">
+                            <div key={i} className="h-20 w-20 sm:h-24 sm:w-24 flex-shrink-0 rounded-full bg-white/5 border border-white/10 shadow-lg backdrop-blur-md flex items-center justify-center hover:scale-110 hover:bg-white/10 transition-all cursor-pointer group">
                                 <img src={src} alt="Integration icon" className="h-10 w-10 sm:h-12 sm:w-12 object-contain opacity-70 group-hover:opacity-100 transition-opacity drop-shadow-[0_0_15px_rgba(255,255,255,0.3)]" />
                             </div>
                         ))}
