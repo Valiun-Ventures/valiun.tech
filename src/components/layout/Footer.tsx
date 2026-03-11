@@ -3,9 +3,7 @@ import React from "react";
 import {
     Facebook,
     Instagram,
-    Twitter,
     Linkedin,
-    Globe,
 } from "lucide-react";
 import { FooterBackgroundGradient, TextHoverEffect } from "@/components/ui/hover-footer";
 import { Logo } from "@/components/ui/Logo";
@@ -42,9 +40,7 @@ export function Footer() {
     const socialLinks = [
         { icon: <Facebook size={18} />, label: "Facebook", href: "#" },
         { icon: <Instagram size={18} />, label: "Instagram", href: "#" },
-        { icon: <Twitter size={18} />, label: "Twitter", href: "#" },
         { icon: <Linkedin size={18} />, label: "Linkedin", href: "#" },
-        { icon: <Globe size={18} />, label: "Globe", href: "#" },
     ];
 
     return (
