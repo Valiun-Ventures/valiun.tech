@@ -92,7 +92,7 @@ function DrawLine({ delay = 0, className = "" }: { delay?: number; className?: s
 
 // ── Infinite horizontal marquee ───────────────────────────────────────────────
 const TICKER_ITEMS = [
-    "Agentic AI", "Cloud Architecture", "Mobile Apps", "DevSecOps",
+    "Agentic AI", "Cloud Architecture", "Mobile Apps", "DevOps",
     "Web Engineering", "Data Pipelines", "UI/UX Design", "Backend Systems",
 ];
 
