@@ -222,7 +222,7 @@ export function Navbar() {
         {
             id: 7,
             label: "Company",
-            href: "/company/about",
+            href: "#",
             subMenus: [
                 {
                     title: "About Valiun",

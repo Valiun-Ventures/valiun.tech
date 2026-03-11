@@ -123,7 +123,7 @@ export const navigation: NavItem[] = [
     },
     {
         label: "Company",
-        href: "/company",
+        href: "#",
         children: [
             { label: "About Us", href: "/company/about" },
             { label: "Why Choose Us", href: "/company/why-choose-us" },
