@@ -127,21 +127,18 @@ const MegaMenu = React.forwardRef<HTMLUListElement, MegaMenuProps>(
                                                                         href={item.href}
                                                                         className="flex items-start space-x-4 group"
                                                                         onClick={() => setOpenMenu(null)}
+                                                                        style={{
+                                                                            "--neon": neonColor,
+                                                                            "--neon-border": `${neonColor}40`,
+                                                                            "--neon-bg": `${neonColor}10`,
+                                                                            "--neon-shadow": `${neonColor}40`,
+                                                                        } as React.CSSProperties}
                                                                     >
                                                                         <div
-                                                                            className="flex size-10 shrink-0 items-center justify-center rounded-xl border transition-all duration-300 group-hover:scale-110"
-                                                                            style={{
-                                                                                borderColor: `${neonColor}20`,
-                                                                                backgroundColor: `${neonColor}05`,
-                                                                                color: neonColor,
-                                                                                boxShadow: `0 0 20px ${neonColor}15`,
-                                                                            } as React.CSSProperties}
+                                                                            className="flex size-10 shrink-0 items-center justify-center rounded-xl border border-white/10 bg-white/5 text-white/40 transition-all duration-300 group-hover:scale-110 group-hover:[border-color:var(--neon-border)] group-hover:[background-color:var(--neon-bg)] group-hover:[color:var(--neon)] group-hover:[box-shadow:0_0_20px_var(--neon-shadow)]"
                                                                         >
                                                                             <Icon
-                                                                                className="h-5 w-5 flex-none"
-                                                                                style={{
-                                                                                    filter: `drop-shadow(0 0 8px ${neonColor})`
-                                                                                }}
+                                                                                className="h-5 w-5 flex-none transition-all duration-300 group-hover:[filter:drop-shadow(0_0_8px_var(--neon))]"
                                                                             />
                                                                         </div>
                                                                         <div className="w-max leading-5 pt-0.5">
