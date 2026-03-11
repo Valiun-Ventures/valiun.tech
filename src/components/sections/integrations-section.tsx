@@ -36,7 +36,7 @@ export function IntegrationsSection() {
 
             {/* Content */}
             <div className="relative max-w-7xl mx-auto px-6 text-center z-10">
-                <h2 className="text-4xl lg:text-5xl xl:text-6xl font-extrabold tracking-tight text-white max-w-3xl mx-auto">
+                <h2 className="text-4xl lg:text-5xl xl:text-6xl font-extrabold tracking-tight text-white max-w-full sm:whitespace-nowrap mx-auto">
                     Automate Your <span className="text-transparent bg-clip-text bg-gradient-to-r from-[#3ca2fa] to-[#bc13fe]">Favourite Tools</span>
                 </h2>
 
