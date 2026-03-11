@@ -41,11 +41,11 @@ export function IntegrationsSection() {
                 </span>
 
                 <h2 className="text-4xl lg:text-5xl xl:text-6xl font-extrabold tracking-tight text-white max-w-3xl mx-auto">
-                    Integrate seamlessly with your <span className="text-transparent bg-clip-text bg-gradient-to-r from-[#3ca2fa] to-[#bc13fe]">favorite tools</span>
+                    Automate Your <span className="text-transparent bg-clip-text bg-gradient-to-r from-[#3ca2fa] to-[#bc13fe]">Favourite Tools</span>
                 </h2>
 
                 <p className="mt-6 text-lg text-gray-400 max-w-2xl mx-auto leading-relaxed">
-                    Over 250+ top applications are available to connect seamlessly with your system, creating an unstoppable, interconnected workflow.
+                    Over 5000+ top applications are available to connect seamlessly with your system, creating an unstoppable, interconnected workflow.
                 </p>
 
 
