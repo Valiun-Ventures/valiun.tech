@@ -30,9 +30,9 @@ const repeatedIcons = (icons: string[], repeat = 4) => Array.from({ length: repe
 
 export function IntegrationsSection() {
     return (
-        <section className="relative py-32 overflow-hidden bg-[#0A0A0B]">
+        <section className="relative py-32 overflow-hidden bg-[#050505]">
             {/* Dark grid background */}
-            <div className="absolute inset-0 bg-[radial-gradient(circle_at_center,rgba(255,255,255,0.04)_1px,transparent_1px)] [background-size:24px_24px]" />
+            <div className="absolute inset-0 bg-[radial-gradient(circle_at_center,rgba(255,255,255,0.03)_1px,transparent_1px)] [background-size:24px_24px]" />
 
             {/* Content */}
             <div className="relative max-w-7xl mx-auto px-6 text-center z-10">
