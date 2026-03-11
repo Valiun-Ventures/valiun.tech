@@ -128,10 +128,10 @@ const MegaMenu = React.forwardRef<HTMLUListElement, MegaMenuProps>(
                                                                         className="flex items-start space-x-4 group"
                                                                         onClick={() => setOpenMenu(null)}
                                                                         style={{
-                                                                            "--neon": neonColor,
-                                                                            "--neon-border": `${neonColor}40`,
-                                                                            "--neon-bg": `${neonColor}10`,
-                                                                            "--neon-shadow": `${neonColor}40`,
+                                                                            "--neon": "#ffffff",
+                                                                            "--neon-border": "rgba(255, 255, 255, 0.4)",
+                                                                            "--neon-bg": "rgba(255, 255, 255, 0.1)",
+                                                                            "--neon-shadow": "rgba(255, 255, 255, 0.4)",
                                                                         } as React.CSSProperties}
                                                                     >
                                                                         <div
