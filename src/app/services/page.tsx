@@ -69,8 +69,8 @@ export default function ServicesPage() {
                                 </span>
                             ))}
                         </div>
-                        <Link href="/services/ai-automation" className="inline-flex items-center text-blue-400 font-bold group/link z-10">
-                            Explore AI Solutions <ArrowRight className="ml-2 w-4 h-4 transition-transform group-hover/link:translate-x-1" />
+                        <Link href="/services/ai-automation" className="inline-flex text-xs uppercase tracking-wider items-center text-blue-400 font-bold group/link z-10">
+                            LEARN MORE <ArrowRight className="ml-2 w-4 h-4 transition-transform group-hover/link:translate-x-1" />
                         </Link>
                         {/* Decorative Icon Background */}
                         <div className="absolute -bottom-10 -right-10 opacity-5 group-hover:opacity-10 transition-all duration-700 pointer-events-none">
@@ -86,9 +86,12 @@ export default function ServicesPage() {
                                 <Code className="w-6 h-6" />
                             </div>
                             <h3 className="text-xl font-bold mb-2">Web Architectures</h3>
-                            <p className="text-gray-400 text-sm">
+                            <p className="text-gray-400 text-sm mb-6">
                                 High-performance, scalable web apps built with Next.js, React, and cloud-native infrastructure.
                             </p>
+                            <Link href="/services/web-development" className="inline-flex text-xs uppercase tracking-wider items-center text-purple-400 font-bold group/link z-10">
+                                LEARN MORE <ArrowRight className="ml-2 w-4 h-4 transition-transform group-hover/link:translate-x-1" />
+                            </Link>
                         </div>
                         <div className="w-32 h-32 rounded-lg bg-center bg-cover border border-white/10 hidden sm:block opacity-50 bg-[url('https://images.unsplash.com/photo-1558494949-ef010cbdcc31?q=80&w=200&auto=format&fit=crop')]" />
                     </div>
