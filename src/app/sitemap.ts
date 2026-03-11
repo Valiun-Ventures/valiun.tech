@@ -1,6 +1,8 @@
 import { MetadataRoute } from "next";
 import { navigation, NavItem } from "@/lib/navigation";
 
+export const dynamic = "force-static";
+
 const baseUrl = "https://valiun.com";
 
 export default function sitemap(): MetadataRoute.Sitemap {
