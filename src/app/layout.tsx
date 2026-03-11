@@ -12,17 +12,10 @@ const inter = Inter({ subsets: ["latin"] });
 
 export const metadata: Metadata = {
   title: {
-    default: "Valiun Tech | Enterprise Agentic AI & Cloud Architecture",
-    template: "%s | Valiun Tech",
+    default: "Valiun Ventures | Enterprise Agentic AI & Cloud Architecture",
+    template: "%s | Valiun Ventures",
   },
-  description: "Valiun Tech specializes in Agentic AI solutions, scalable cloud architectures (AWS/Azure), and premium digital transformation for enterprises.",
-  icons: {
-    icon: [
-      { url: "/favicon.ico", sizes: "any" },
-      { url: "/favicon.png", type: "image/png" },
-    ],
-    apple: "/favicon.png",
-  },
+  description: "Valiun Ventures specializes in Agentic AI solutions, scalable cloud architectures (AWS/Azure), and premium digital transformation for enterprises.",
 };
 
 export default function RootLayout({
