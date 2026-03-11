@@ -273,7 +273,7 @@ export function Hero() {
                             </Link>
                             <Link
                                 href="/services"
-                                className="group inline-flex items-center justify-center gap-2 px-8 py-3.5 rounded-lg border border-white/10 hover:border-purple-500/40 text-white/50 hover:text-white font-medium text-sm transition-all duration-300 whitespace-nowrap hover:bg-purple-500/5 h-[52px]"
+                                className="group inline-flex items-center justify-center gap-2 px-8 py-3.5 rounded-lg border border-white/10 hover:border-purple-500/40 text-white/50 hover:text-white font-medium text-base transition-all duration-300 whitespace-nowrap hover:bg-purple-500/5"
                             >
                                 Explore Capabilities
                                 <ArrowUpRight className="w-4 h-4 group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-transform" />
