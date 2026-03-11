@@ -15,7 +15,7 @@ import {
 
 export function BentoFeatures() {
     return (
-        <Section className="py-32 relative">
+        <Section className="py-12 lg:py-16 relative">
             {/* Background Noise Texture */}
             <div className="absolute inset-0 opacity-[0.03] pointer-events-none bg-[url('https://grainy-gradients.vercel.app/noise.svg')] mix-blend-overlay" />
 

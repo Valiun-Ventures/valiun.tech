@@ -151,7 +151,7 @@ export const ClientSuccessStories = () => {
     return (
         <section
             aria-labelledby="testimonials-heading"
-            className="bg-transparent py-24 relative overflow-hidden"
+            className="bg-transparent py-12 lg:py-16 relative overflow-hidden"
         >
             <m.div
                 initial={{ opacity: 0, y: 50, rotate: -2 }}
