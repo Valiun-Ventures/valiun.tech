@@ -5,24 +5,50 @@ import { Reveal } from "@/components/ui/Reveal";
 import Link from "next/link";
 import { m } from "framer-motion";
 import { Bot, Code, Smartphone, Cloud, Database, Palette, Shield, Terminal, ArrowRight } from "lucide-react";
+
 import { CallToAction } from "@/components/sections/CallToAction";
-import { OverviewHero } from "@/components/ui/OverviewHero";
+import { BentoFeatures } from "@/components/sections/BentoFeatures";
+import { FeaturedProjects } from "@/components/sections/FeaturedProjects";
+import { EngagementModels } from "@/components/sections/EngagementModels";
+import { RndSection } from "@/components/sections/RndSection";
+import { BlogsPreview } from "@/components/sections/BlogsPreview";
+import { FAQSection } from "@/components/sections/FAQSection";
 
 export default function ServicesPage() {
     return (
         <div className="">
             {/* Hero Section */}
-            <OverviewHero
-                badge="Intelligence at Scale"
-                title="Elite Capabilities."
-                description="We architect high-performance digital ecosystems. From Agentic AI to mission-critical cloud infrastructure, we build the foundations of market dominance."
-                gradientFrom="#3ca2fa"
-                gradientTo="#bc13fe"
-            />
-
+            <Section className="!mb-0 !pb-20 text-center max-w-4xl mx-auto pt-24">
+                <Reveal width="fit-content" className="mx-auto">
+                    <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-blue-500/10 border border-blue-500/20 text-blue-400 text-xs font-bold uppercase tracking-wider mb-6">
+                        OUR EXPERTISE
+                    </div>
+                </Reveal>
+                <Reveal width="100%">
+                    <h1 className="text-5xl md:text-7xl font-black tracking-tight mb-8 leading-tight">
+                        We scale ambition with <span className="text-transparent bg-clip-text bg-gradient-to-r from-blue-400 to-purple-500">Intelligent Systems</span>.
+                    </h1>
+                </Reveal>
+                <Reveal width="100%" delay={0.2}>
+                    <p className="text-gray-400 text-lg md:text-xl leading-relaxed mb-10 max-w-3xl mx-auto font-light">
+                        Valiun delivers world-class software engineering. From custom Agentic AI
+                        workflows to resilient cloud architecture, we build the foundations of
+                        digital dominance.
+                    </p>
+                </Reveal>
+            </Section>
 
             {/* Bento Services Grid */}
-            <Section className="!pt-8 !mt-0 mb-24">
+            <Section className="!pt-8 !mt-0 mb-24 border-t border-white/5">
+                <div className="text-center mb-16 pt-16">
+                    <Reveal className="mx-auto">
+                        <h2 className="text-4xl md:text-5xl font-bold mb-6">Specialized <span className="text-transparent bg-clip-text bg-gradient-to-r from-blue-400 to-purple-600">Engineering</span></h2>
+                        <p className="text-slate-400 max-w-2xl mx-auto font-light leading-relaxed">
+                            Deep technical domains where our teams excel and deliver disproportionate value.
+                        </p>
+                    </Reveal>
+                </div>
+
                 <div className="grid grid-cols-1 md:grid-cols-4 auto-rows-[minmax(180px,auto)] gap-6">
                     {/* AI & Automation (Featured - 2x2) */}
                     <div className="md:col-span-2 md:row-span-2 bg-white/5 border border-white/10 rounded-2xl p-8 flex flex-col justify-between group relative overflow-hidden hover:border-blue-500/50 hover:shadow-[0_0_40px_-10px_rgba(59,130,246,0.4)] transition-all duration-500">
@@ -149,8 +175,26 @@ export default function ServicesPage() {
                 </div>
             </Section>
 
-            {/* Quality Assurance Section */}
+            {/* Core Capabilities */}
+            <BentoFeatures />
+
+            {/* Case Studies */}
+            <FeaturedProjects />
+
+            {/* Flexible Engagement Models */}
+            <EngagementModels />
+
+            {/* Staying ahead of the Curve */}
+            <RndSection />
+
+            {/* Blog Section */}
+            <BlogsPreview />
+
+            {/* Current CTA section */}
             <CallToAction />
+
+            {/* FAQ */}
+            <FAQSection />
         </div>
     );
 }
