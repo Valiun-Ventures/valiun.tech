@@ -117,9 +117,9 @@ function Ticker() {
 }
 
 const stats = [
-    { target: 50, suffix: "+", label: "Projects" },
+    { target: 80, suffix: "+", label: "Projects" },
     { target: 6, suffix: "+", label: "Years" },
-    { target: 99, suffix: "%", label: "Retention" },
+    { target: 98, suffix: "%", label: "Retention" },
 ];
 
 export function Hero() {
