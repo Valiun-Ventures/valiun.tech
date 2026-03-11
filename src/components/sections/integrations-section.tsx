@@ -36,10 +36,6 @@ export function IntegrationsSection() {
 
             {/* Content */}
             <div className="relative max-w-7xl mx-auto px-6 text-center z-10">
-                <span className="inline-block px-4 py-1.5 mb-6 text-sm font-semibold rounded-full border border-white/10 bg-white/5 text-purple-400 uppercase tracking-widest backdrop-blur-md">
-                    Integrations
-                </span>
-
                 <h2 className="text-4xl lg:text-5xl xl:text-6xl font-extrabold tracking-tight text-white max-w-3xl mx-auto">
                     Automate Your <span className="text-transparent bg-clip-text bg-gradient-to-r from-[#3ca2fa] to-[#bc13fe]">Favourite Tools</span>
                 </h2>
