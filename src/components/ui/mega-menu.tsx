@@ -111,7 +111,7 @@ const MegaMenu = React.forwardRef<HTMLUListElement, MegaMenuProps>(
                                         exit={{ opacity: 0, y: 10, scale: 0.95 }}
                                         transition={{ duration: 0.2, ease: "easeOut" }}
                                     >
-                                        <div className="flex w-fit shrink-0 space-x-12 overflow-hidden">
+                                        <div className="flex w-fit shrink-0 space-x-12">
                                             {navItem.subMenus.map((sub) => (
                                                 <div className="w-full min-w-[200px]" key={sub.title}>
                                                     <h3 className="mb-6 text-[11px] font-mono tracking-[0.2em] uppercase text-white/30 border-b border-white/5 pb-2">
