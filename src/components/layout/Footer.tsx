@@ -38,9 +38,9 @@ export function Footer() {
 
     // Social media icons
     const socialLinks = [
-        { icon: <Facebook size={18} />, label: "Facebook", href: "#" },
-        { icon: <Instagram size={18} />, label: "Instagram", href: "#" },
-        { icon: <Linkedin size={18} />, label: "Linkedin", href: "#" },
+        { icon: <Facebook size={18} />, label: "Facebook", href: "https://www.facebook.com/p/Valiun-Venture-61586742280511/" },
+        { icon: <Instagram size={18} />, label: "Instagram", href: "https://www.instagram.com/valiun.ventures/" },
+        { icon: <Linkedin size={18} />, label: "Linkedin", href: "https://www.linkedin.com/company/valiun-ventures" },
     ];
 
     return (
@@ -91,6 +91,8 @@ export function Footer() {
                                 key={label}
                                 href={href}
                                 aria-label={label}
+                                target="_blank"
+                                rel="noopener noreferrer"
                                 className="text-gray-400 hover:text-[#3ca2fa] transition-colors"
                             >
                                 {icon}
