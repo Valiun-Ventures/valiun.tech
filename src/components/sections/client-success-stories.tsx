@@ -165,12 +165,6 @@ export const ClientSuccessStories = () => {
                 className="container px-4 z-10 mx-auto"
             >
                 <div className="flex flex-col items-center justify-center max-w-[540px] mx-auto mb-16">
-                    <div className="flex justify-center">
-                        <div className="border border-neutral-300 dark:border-white/10 py-1 px-4 rounded-full text-xs font-semibold tracking-wide uppercase text-neutral-600 dark:text-neutral-400 bg-neutral-100/50 dark:bg-white/5 backdrop-blur-sm transition-colors">
-                            Client Success Stories
-                        </div>
-                    </div>
-
                     <h2 id="testimonials-heading" className="text-4xl md:text-5xl font-extrabold tracking-tight mt-6 text-center text-white transition-colors">
                         What our <span className="text-transparent bg-clip-text bg-gradient-to-r from-[#3ca2fa] via-[#bc13fe] to-[#3ca2fa] bg-[length:200%_auto] animate-gradient">Clients Says</span>
                     </h2>
