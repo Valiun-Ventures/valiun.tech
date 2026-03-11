@@ -18,7 +18,7 @@ export default function ServicesPage() {
     return (
         <div className="">
             {/* Hero Section */}
-            <Section className="!mb-0 !pb-20 text-center max-w-4xl mx-auto pt-24">
+            <Section className="!mb-0 !pb-10 text-center max-w-4xl mx-auto pt-24">
                 <Reveal width="fit-content" className="mx-auto">
                     <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-blue-500/10 border border-blue-500/20 text-blue-400 text-xs font-bold uppercase tracking-wider mb-6">
                         OUR EXPERTISE
@@ -39,7 +39,7 @@ export default function ServicesPage() {
             </Section>
 
             {/* Bento Services Grid */}
-            <Section className="!pt-8 !mt-0 mb-24 border-t border-white/5">
+            <Section className="!pt-8 !mt-0 mb-12 border-t border-white/5">
                 <div className="text-center mb-16 pt-16">
                     <Reveal className="mx-auto">
                         <h2 className="text-4xl md:text-5xl font-bold mb-6">Specialized <span className="text-transparent bg-clip-text bg-gradient-to-r from-blue-400 to-purple-600">Engineering</span></h2>
@@ -178,23 +178,25 @@ export default function ServicesPage() {
                 </div>
             </Section>
 
-            {/* Case Studies */}
-            <FeaturedProjects />
+            <div className="flex flex-col [&>section]:!py-10 lg:[&>section]:!py-12 [&>div]:!py-10 lg:[&>div]:!py-12">
+                {/* Case Studies */}
+                <FeaturedProjects />
 
-            {/* Flexible Engagement Models */}
-            <EngagementModels />
+                {/* Flexible Engagement Models */}
+                <EngagementModels />
 
-            {/* Staying ahead of the Curve */}
-            <RndSection />
+                {/* Staying ahead of the Curve */}
+                <RndSection />
 
-            {/* Blog Section */}
-            <BlogsPreview />
+                {/* Blog Section */}
+                <BlogsPreview />
 
-            {/* Testimonials */}
-            <ClientSuccessStories />
+                {/* Testimonials */}
+                <ClientSuccessStories />
 
-            {/* FAQ */}
-            <FAQSection />
+                {/* FAQ */}
+                <FAQSection />
+            </div>
 
             {/* Current CTA section */}
             <CallToAction />
