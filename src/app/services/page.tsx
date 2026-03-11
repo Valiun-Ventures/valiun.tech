@@ -7,7 +7,7 @@ import { m } from "framer-motion";
 import { Bot, Code, Smartphone, Cloud, Database, Palette, Shield, Terminal, ArrowRight } from "lucide-react";
 
 import { CallToAction } from "@/components/sections/CallToAction";
-import { BentoFeatures } from "@/components/sections/BentoFeatures";
+import { ClientSuccessStories } from "@/components/sections/client-success-stories";
 import { FeaturedProjects } from "@/components/sections/FeaturedProjects";
 import { EngagementModels } from "@/components/sections/EngagementModels";
 import { RndSection } from "@/components/sections/RndSection";
@@ -175,9 +175,6 @@ export default function ServicesPage() {
                 </div>
             </Section>
 
-            {/* Core Capabilities */}
-            <BentoFeatures />
-
             {/* Case Studies */}
             <FeaturedProjects />
 
@@ -190,11 +187,14 @@ export default function ServicesPage() {
             {/* Blog Section */}
             <BlogsPreview />
 
-            {/* Current CTA section */}
-            <CallToAction />
+            {/* Testimonials */}
+            <ClientSuccessStories />
 
             {/* FAQ */}
             <FAQSection />
+
+            {/* Current CTA section */}
+            <CallToAction />
         </div>
     );
 }
