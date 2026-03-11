@@ -1,9 +1,7 @@
 import { Metadata } from "next";
 import { Hero } from "@/components/sections/Hero";
 
-export const metadata: Metadata = {
-  title: "Home",
-};
+// Home page title is managed by the default metadata in layout.tsx
 import { ServicesOverview } from "@/components/sections/ServicesOverview";
 import { ClientSuccessStories } from "@/components/sections/client-success-stories";
 import { FAQSection } from "@/components/sections/FAQSection";
