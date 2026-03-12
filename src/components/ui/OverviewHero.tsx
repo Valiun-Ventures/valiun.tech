@@ -27,19 +27,36 @@ export function OverviewHero({
     const springX = useSpring(mouseX, springConfig);
     const springY = useSpring(mouseY, springConfig);
 
+    const rectRef = useRef<DOMRect | null>(null);
+
     useEffect(() => {
+        const handleResize = () => {
+            if (containerRef.current) {
+                rectRef.current = containerRef.current.getBoundingClientRect();
+            }
+        };
+
         const handleMouseMove = (e: MouseEvent) => {
-            if (!containerRef.current) return;
-            const rect = containerRef.current.getBoundingClientRect();
+            if (!rectRef.current) {
+                if (containerRef.current) {
+                    rectRef.current = containerRef.current.getBoundingClientRect();
+                } else return;
+            }
+            const { left, top, width, height } = rectRef.current;
             // Calculate mouse relative to center of container
-            const x = e.clientX - rect.left - rect.width / 2;
-            const y = e.clientY - rect.top - rect.height / 2;
+            const x = e.clientX - left - width / 2;
+            const y = e.clientY - top - height / 2;
             mouseX.set(x);
             mouseY.set(y);
         };
 
+        handleResize(); // Initial measurement
         window.addEventListener("mousemove", handleMouseMove);
-        return () => window.removeEventListener("mousemove", handleMouseMove);
+        window.addEventListener("resize", handleResize);
+        return () => {
+            window.removeEventListener("mousemove", handleMouseMove);
+            window.removeEventListener("resize", handleResize);
+        };
     }, [mouseX, mouseY]);
 
     return (

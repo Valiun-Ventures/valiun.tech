@@ -52,7 +52,7 @@ export function IntegrationsSection() {
                     <div className="flex gap-8 sm:gap-10 whitespace-nowrap animate-scroll-left">
                         {repeatedIcons(ICONS_ROW1, 4).map((src, i) => (
                             <div key={i} className="h-16 w-16 sm:h-20 sm:w-20 flex-shrink-0 rounded-full bg-gray-300 shadow-md flex items-center justify-center">
-                                <img src={src} alt="Integration icon" className="h-10 w-10 sm:h-12 sm:w-12 object-contain" />
+                                <img src={src} alt="Integration icon" className="h-10 w-10 sm:h-12 sm:w-12 object-contain" loading="lazy" decoding="async" />
                             </div>
                         ))}
                     </div>
@@ -61,7 +61,7 @@ export function IntegrationsSection() {
                     <div className="flex gap-8 sm:gap-10 whitespace-nowrap mt-6 sm:mt-8 animate-scroll-right">
                         {repeatedIcons(ICONS_ROW2, 4).map((src, i) => (
                             <div key={i} className="h-16 w-16 sm:h-20 sm:w-20 flex-shrink-0 rounded-full bg-gray-300 shadow-md flex items-center justify-center">
-                                <img src={src} alt="Integration icon" className="h-10 w-10 sm:h-12 sm:w-12 object-contain" />
+                                <img src={src} alt="Integration icon" className="h-10 w-10 sm:h-12 sm:w-12 object-contain" loading="lazy" decoding="async" />
                             </div>
                         ))}
                     </div>

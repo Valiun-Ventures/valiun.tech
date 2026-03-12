@@ -36,6 +36,10 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en" className="dark scroll-smooth" suppressHydrationWarning>
+      <head>
+        <link rel="preconnect" href="https://grainy-gradients.vercel.app" />
+        <link rel="preconnect" href="https://cdn-icons-png.flaticon.com" crossOrigin="anonymous" />
+      </head>
       <body className={`${inter.className} bg-[#030303] text-white antialiased overflow-x-hidden selection:bg-blue-500/30`}>
         <ThemeProvider attribute="class" defaultTheme="dark" enableSystem={false}>
           <AnimationProvider>

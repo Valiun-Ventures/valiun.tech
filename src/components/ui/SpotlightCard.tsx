@@ -1,6 +1,6 @@
 "use client";
 
-import { MouseEvent } from "react";
+import { useRef, MouseEvent } from "react";
 import { m, useMotionTemplate, useMotionValue } from "framer-motion";
 
 import { cn } from "@/lib/utils";
@@ -14,9 +14,13 @@ interface SpotlightCardProps {
 export function SpotlightCard({ children, className, spotlightColor = "rgba(59, 130, 246, 0.25)" }: SpotlightCardProps) {
     const mouseX = useMotionValue(0);
     const mouseY = useMotionValue(0);
+    const rectRef = useRef<DOMRect | null>(null);
 
-    function handleMouseMove({ currentTarget, clientX, clientY }: MouseEvent) {
-        const { left, top } = currentTarget.getBoundingClientRect();
+    function handleMouseMove({ clientX, clientY, currentTarget }: MouseEvent) {
+        if (!rectRef.current) {
+            rectRef.current = currentTarget.getBoundingClientRect();
+        }
+        const { left, top } = rectRef.current;
         mouseX.set(clientX - left);
         mouseY.set(clientY - top);
     }
