@@ -3,6 +3,9 @@ import { Section } from "@/components/ui/Section";
 
 export const metadata: Metadata = {
     title: "About Us",
+    alternates: {
+        canonical: "/company/about",
+    },
 };
 import { Button } from "@/components/ui/Button";
 import { Reveal } from "@/components/ui/Reveal";

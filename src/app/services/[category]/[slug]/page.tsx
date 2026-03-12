@@ -15,6 +15,9 @@ export async function generateMetadata({ params }: { params: Promise<{ category:
 
     return {
         title: serviceData.label,
+        alternates: {
+            canonical: `/services/${category}/${slug}`,
+        },
     };
 }
 

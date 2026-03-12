@@ -14,6 +14,9 @@ export async function generateMetadata({ params }: { params: Promise<{ slug: str
 
     return {
         title: solutionData.label,
+        alternates: {
+            canonical: `/solutions/${slug}`,
+        },
     };
 }
 

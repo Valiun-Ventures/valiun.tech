@@ -11,11 +11,15 @@ import { CookieConsent } from "@/components/ui/CookieConsent";
 const inter = Inter({ subsets: ["latin"] });
 
 export const metadata: Metadata = {
+  metadataBase: new URL("https://valiun.com"),
   title: {
     default: "Valiun Ventures",
     template: "%s | Valiun Ventures",
   },
   description: "Valiun Ventures specializes in Agentic AI solutions, scalable cloud architectures (AWS/Azure), and premium digital transformation for enterprises.",
+  alternates: {
+    canonical: "/",
+  },
   icons: {
     icon: [
       { url: "/icon.png", type: "image/png" },

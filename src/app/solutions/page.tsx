@@ -4,6 +4,9 @@ import { SolutionsPageClient } from "./SolutionsPageClient";
 export const metadata: Metadata = {
     title: "Solutions | Valiun Ventures",
     description: "Tailored software solutions designed for maximum business impact. From startup MVPs to enterprise modernization.",
+    alternates: {
+        canonical: "/solutions",
+    },
 };
 
 export default function SolutionsPage() {
