@@ -6,23 +6,23 @@ import Link from "next/link";
 import { ArrowUpRight } from "lucide-react";
 
 const ICONS_ROW1 = [
-    "https://cdn-icons-png.flaticon.com/512/5968/5968854.png", // Figma
-    "https://cdn-icons-png.flaticon.com/512/732/732221.png", // Microsoft
-    "https://cdn-icons-png.flaticon.com/512/733/733609.png", // GitHub
-    "https://cdn-icons-png.flaticon.com/512/732/732084.png", // AWS
-    "https://cdn-icons-png.flaticon.com/512/733/733585.png", // Web
-    "https://cdn-icons-png.flaticon.com/512/281/281763.png", // Display
-    "https://cdn-icons-png.flaticon.com/512/888/888879.png", // Code
+    "https://cdn-icons-png.flaticon.com/128/5968/5968854.png", // Figma
+    "https://cdn-icons-png.flaticon.com/128/732/732221.png", // Microsoft
+    "https://cdn-icons-png.flaticon.com/128/733/733609.png", // GitHub
+    "https://cdn-icons-png.flaticon.com/128/732/732084.png", // AWS
+    "https://cdn-icons-png.flaticon.com/128/733/733585.png", // Web
+    "https://cdn-icons-png.flaticon.com/128/281/281763.png", // Display
+    "https://cdn-icons-png.flaticon.com/128/888/888879.png", // Code
 ];
 
 const ICONS_ROW2 = [
-    "https://cdn-icons-png.flaticon.com/512/174/174857.png", // LinkedIn
-    "https://cdn-icons-png.flaticon.com/512/906/906324.png", // API
-    "https://cdn-icons-png.flaticon.com/512/888/888841.png", // Mobile
-    "https://cdn-icons-png.flaticon.com/512/5968/5968875.png", // Notion
-    "https://cdn-icons-png.flaticon.com/512/906/906361.png", // Server
-    "https://cdn-icons-png.flaticon.com/512/732/732190.png", // Docker
-    "https://cdn-icons-png.flaticon.com/512/888/888847.png", // Database
+    "https://cdn-icons-png.flaticon.com/128/174/174857.png", // LinkedIn
+    "https://cdn-icons-png.flaticon.com/128/906/906324.png", // API
+    "https://cdn-icons-png.flaticon.com/128/888/888841.png", // Mobile
+    "https://cdn-icons-png.flaticon.com/128/5968/5968875.png", // Notion
+    "https://cdn-icons-png.flaticon.com/128/906/906361.png", // Server
+    "https://cdn-icons-png.flaticon.com/128/732/732190.png", // Docker
+    "https://cdn-icons-png.flaticon.com/128/888/888847.png", // Database
 ];
 
 // Utility to repeat icons enough times
