@@ -5,13 +5,14 @@ import { Reveal } from "@/components/ui/Reveal";
 import Link from "next/link";
 import { Building2, Stethoscope, GraduationCap, Users, ShoppingBag, Briefcase, ArrowRight, Shield, Plane, Home } from "lucide-react";
 
-import { CallToAction } from "@/components/sections/CallToAction";
-import { ClientSuccessStories } from "@/components/sections/client-success-stories";
-import { FeaturedProjects } from "@/components/sections/FeaturedProjects";
-import { EngagementModels } from "@/components/sections/EngagementModels";
-import { RndSection } from "@/components/sections/RndSection";
-import { BlogsPreview } from "@/components/sections/BlogsPreview";
-import { FAQSection } from "@/components/sections/FAQSection";
+import dynamic from "next/dynamic";
+const CallToAction = dynamic(() => import("@/components/sections/CallToAction").then(mod => mod.CallToAction));
+const ClientSuccessStories = dynamic(() => import("@/components/sections/client-success-stories").then(mod => mod.ClientSuccessStories));
+const FeaturedProjects = dynamic(() => import("@/components/sections/FeaturedProjects").then(mod => mod.FeaturedProjects));
+const EngagementModels = dynamic(() => import("@/components/sections/EngagementModels").then(mod => mod.EngagementModels));
+const RndSection = dynamic(() => import("@/components/sections/RndSection").then(mod => mod.RndSection));
+const BlogsPreview = dynamic(() => import("@/components/sections/BlogsPreview").then(mod => mod.BlogsPreview));
+const FAQSection = dynamic(() => import("@/components/sections/FAQSection").then(mod => mod.FAQSection));
 
 export function IndustriesPageClient() {
     return (
